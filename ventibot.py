@@ -1,11 +1,14 @@
 import discord
 import random
+from mangascrape import Scrape
+import asyncio
+scrape = Scrape()
 
 
 class MyClient(discord.Client):
 
     # embeds #
-    
+
     # welcome message embed, inputs member's name and the channel ID for #self-roles in the message
     async def welcome_message(self, channel, member):
         welcome_message = discord.Embed(
@@ -20,7 +23,7 @@ class MyClient(discord.Client):
                                    icon_url='https://cdn.discordapp.com/attachments/772150088599863296'
                                             '/772174650234372146/41.png')
         await channel.send(embed=welcome_message)
-    
+
     # embed inside #self-roles for choosing game role, either Travelers for Genshin or Sins for 7DS: Grand Cross
     async def roles_game(self, message):
         roles_game = discord.Embed(
@@ -33,7 +36,7 @@ class MyClient(discord.Client):
         roles_game.add_field(name='7DS: Grand Cross', value='React with <:Sins:773689968719036496> for Grand Cross',
                              inline=True)
         await message.channel.send(embed=roles_game)
-    
+
     # embed inside #self-roles for choosing world level, was requested by the server to better see who they can actually
     # co-op with for relevant rewards or just to help out
     async def world_level(self, message):
@@ -75,18 +78,39 @@ class MyClient(discord.Client):
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
         await message.channel.send(embed=world_level)
 
-    # below command can be edited to call whatever embed you create via a command to post in chat
-    # def on_message(self, message):
-        # if message.content == '!rules':
-            # await self.rules(message)
-    
+    async def manga_check(self):
+        await self.wait_until_ready()
+        # grabs manga-updates channel
+        ch = self.get_channel(778448461162086440)
+        while not self.is_closed():
+            print('Updating manga..')
+            sl_string = scrape.sl_update()
+            # runs update function, if it comes back with an actual return it will send it to the channel
+            if sl_string:
+                await ch.send(sl_string)
+            csm_string = scrape.csm_update()
+            # runs update function, if it comes back with an actual return it will send it to the channel
+            if csm_string:
+                await ch.send(csm_string)
+            snk_string = scrape.snk_update()
+            # runs update function, if it comes back with an actual return it will send it to the channel
+            if snk_string:
+                await ch.send(snk_string)
+            jjk_string = scrape.jjk_update()
+            # runs update function, if it comes back with an actual return it will send it to the channel
+            if jjk_string:
+                await ch.send(jjk_string)
+            print('Manga update finished!')
+            # sleeps for 15 minutes then loops through again to try and catch new updates when they release
+            await asyncio.sleep(600)
+
     # function for creating list of all users with specific role, used this for giveaways inside the server
     def get_list(self, message):
         server_members = message.guild.members
-        # change name for below get function to whatever the name of the giveaway role is
+        # change name for get function to whatever the name of the giveaway role is
         giveaway_role = discord.utils.get(message.guild.roles, name='🥳 Battle Pass Giveaway')
         giveaway_members_list = []
-        
+
         # cycles through all members in server and their roles, adding anyone with above role
         # to the list, then returns the list once it's done to be used in below function
         for member in server_members:
@@ -94,14 +118,18 @@ class MyClient(discord.Client):
                 giveaway_members_list.append(member)
         return giveaway_members_list
 
-    # on message it will grab the list created from get_list function and randomly mention someone in the list
+    # on message functions (bot commands) (prefix: '.')
     async def on_message(self, message):
+        # on message it will grab the list created from get_list function and randomly mention someone in the list
         if message.content.startswith('!winner'):
             for role in message.author.roles:
                 if 'Fatui Harbringers' or "Makima's Dog" == role.name:
                     giveaway_winner = random.choice(self.get_list(message))
                     winner_message = 'Congrats {}, you have won the giveaway!'.format(giveaway_winner.name)
                     await message.channel.send(winner_message)
+        # function can be used to call embeds or something else, just here in case I ever need it
+        if message.content == '.manga':
+            await message.channel.send(scrape.snk_chapter_check())
 
     # role add and remove based on reaction, you need to add the message ID with the others. may be able to improve
     # this process to look cleaner on this end but it works
@@ -139,7 +167,7 @@ class MyClient(discord.Client):
                     await member.add_roles(role)
 
     # the opposite of the reaction_remove command, I have it set up to give Guest role back if they were to not have
-    # any active reactions to the roles_game embed but not to do so if they're removing react from any of the other 
+    # any active reactions to the roles_game embed but not to do so if they're removing react from any of the other
     # embeds
     async def on_raw_reaction_remove(self, payload):
         message_id = payload.message_id
@@ -170,48 +198,16 @@ class MyClient(discord.Client):
                     await member.remove_roles(role)
 
     # bot login confirmation #
-
     async def on_ready(self):
         print('Logged on as', self.user)
-    
-    # tweepy stuff, I plan to mess with this more later so I can have the bot post twitter updates from the Genshin 
-    # Official Twitter account, right now it's handled by a Webhook instead on my IFTTT account
-    
-    # Twitter login authentication
 
-#    async def create_api(self):
-#        twt_api_key = ''
-#        twt_api_secret = ''
-#        twt_access_token = ''
-#        twt_access_token_secret = ''
+    # functions to run when bot logs in #
+    async def on_connect(self):
+        # once bot connects to discord it will begin the manga check loop
+        await self.loop.create_task(self.manga_check())
 
-        # twitter authentication #
-        #        auth = tweepy.OAuthHandler(twt_api_key, twt_api_secret)
-        #        auth.set_access_token(twt_access_token, twt_access_token_secret)
-        #       api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
-
-        #        try:
-        #            api.verify_credentials()
-        #        except Exception as e:
-        #            logger.error('Error creating API', exc_info=True)
-        #           raise e
-        #        logger.info('API created!')
-    #        return api
-
-        #    async def on_status(self, status, message):
-        #        if status.in_reply_to_status_id is None:
-        #            tweet_body = status.text
-        #        tweet_embed = discord.Embed(
-        #            title="Genshin Impact Official",
-        #            description="New Tweet from Paimon",
-        #            colour=discord.Colour.purple()
-        #        )
-        #       tweet_embed.set_footer(text='@GenshinImpact')
-    #        tweet_embed.add_field(name=chr(173), value=tweet_body)
-    
-    # sends welcome_message embed in welcome text channel whenever someone joins and also gives them Guest role so no
-    # one in the server will be role-less
-
+    # sends welcome_message embed in welcome text channel whenever someone joins and also gives them Guest role so
+    # no one in the server will be role-less
     async def on_member_join(self, member):
         ch = self.get_channel(749438385042751552)
         await self.welcome_message(ch, member)
