@@ -89,14 +89,14 @@ class Scrape:
 
     def snk_chapter_check(self):
         # source url
-        source = requests.get('https://www.readsnk.com').text
+        source = requests.get('https://www.readsnk.com/').text
         soup = BeautifulSoup(source, 'lxml')
         # loops through all fields with specified class
         contents = soup.find_all(class_="flex flex-col")
         # newest_chp is the 1st chapter in the list, aka latest uploaded/updated
-        newest_chp = contents[0]
+        # newest_chp = contents[0]
         # chp_number is only the text portion showing chp number
-        chp_number = newest_chp
+        chp_number = contents[0].a.text
         return chp_number
 
     def snk_link(self):
