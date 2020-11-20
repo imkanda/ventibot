@@ -1,8 +1,11 @@
 import discord
 import random
 from mangascrape import Scrape
+from ch_guides import Guides
 import asyncio
+
 scrape = Scrape()
+guides = Guides()
 
 
 class MyClient(discord.Client):
@@ -36,6 +39,44 @@ class MyClient(discord.Client):
         roles_game.add_field(name='7DS: Grand Cross', value='React with <:Sins:773689968719036496> for Grand Cross',
                              inline=True)
         await message.channel.send(embed=roles_game)
+
+    # embed inside #self-roles for choosing genshin server
+    async def server_select(self, message):
+        server_select = discord.Embed(
+            description="React to display your Genshin server/region!",
+            colour=discord.Colour.red()
+        )
+        server_select.set_footer(text="Server Select")
+        server_select.add_field(name='NA', value='React with 🇺🇸 for NA', inline=False)
+        server_select.add_field(name='EU', value='React with 🇪🇺 for EU', inline=True)
+        server_select.add_field(name='AS', value='React with 🇯🇵 for AS', inline=False)
+        server_select.add_field(name='SAR', value='React with 🇭🇰 for SAR', inline=True)
+        await message.channel.send(embed=server_select)
+
+    async def role_info(self, message):
+        role_info = discord.Embed(
+            description="Below is some info on roles here in The Hole",
+            colour=discord.Colour.red()
+        )
+        role_info.set_thumbnail(url=
+            "https://cdn.discordapp.com/attachments/772150088599863296/778844565255094312/954bfd00b5ef97c3444b5494541eded8.png")
+        role_info.set_footer(text="Server Info")
+        role_info.add_field(name="Makima's Dog", value="Kanda's role <:pepeboss:773671306893197323>",
+                            inline=False)
+        role_info.add_field(name='Fatui Harbingers', value='Server moderators', inline=False)
+        role_info.add_field(name='Knights of Favonius', value='Top 5 active in the server ([Leaderboard]'
+                                                              '(https://mee6.xyz/leaderboard/749438385042751549))',
+                            inline=False)
+        role_info.add_field(name='Travelers', value='Genshin Impact players', inline=False)
+        role_info.add_field(name='Sins', value='SDS: Grand Cross players', inline=False)
+        role_info.add_field(name='Manga Fiends', value='People who want updated when new manga chapters come out in '
+                                                       '<#778448461162086440>', inline=False)
+        role_info.add_field(name='Server Booster', value='Currently boosting The Hole using their Discord Nitro! '
+                                                         '<:kannalove:778843977838624788>', inline=False)
+        role_info.add_field(name='Guest/Friends', value="Users who don't play games or haven't visited <#749485522447237211> "
+                                                        "yet!", inline=False)
+        role_info.add_field(name='Bots', value='Friendly Discord bots', inline=False)
+        await message.channel.send(embed=role_info)
 
     # embed inside #self-roles for choosing world level, was requested by the server to better see who they can actually
     # co-op with for relevant rewards or just to help out
@@ -120,16 +161,69 @@ class MyClient(discord.Client):
 
     # on message functions (bot commands) (prefix: '.')
     async def on_message(self, message):
-        # on message it will grab the list created from get_list function and randomly mention someone in the list
-        if message.content.startswith('!winner'):
-            for role in message.author.roles:
-                if 'Fatui Harbringers' or "Makima's Dog" == role.name:
-                    giveaway_winner = random.choice(self.get_list(message))
-                    winner_message = 'Congrats {}, you have won the giveaway!'.format(giveaway_winner.name)
-                    await message.channel.send(winner_message)
-        # function can be used to call embeds or something else, just here in case I ever need it
-        if message.content == '.manga':
-            await message.channel.send(scrape.snk_chapter_check())
+        if message.content.startswith('.'):
+            # on message it will grab the list created from get_list function and randomly mention someone in the list
+            if message.content == '.winner':
+                for role in message.author.roles:
+                    if 'Fatui Harbringers' or "Makima's Dog" == role.name:
+                        giveaway_winner = random.choice(self.get_list(message))
+                        winner_message = 'Congrats {}, you have won the giveaway!'.format(giveaway_winner.name)
+                        await message.channel.send(winner_message)
+            # function can be used to call embeds or something else, just here in case I ever need it
+            if message.content == '.amber':
+                await message.channel.send(embed=guides.amber())
+            if message.content == '.barbara':
+                await message.channel.send(embed=guides.barbara())
+            if message.content == '.beidou':
+                await message.channel.send(embed=guides.beidou())
+            if message.content == '.bennett':
+                await message.channel.send(embed=guides.bennett())
+            if message.content == '.chongyun':
+                await message.channel.send(embed=guides.chongyun())
+            if message.content == '.diluc':
+                await message.channel.send(embed=guides.diluc())
+            if message.content == '.diona':
+                await message.channel.send(embed=guides.diona())
+            if message.content == '.fischl':
+                await message.channel.send(embed=guides.fischl())
+            if message.content == '.jean':
+                await message.channel.send(embed=guides.jean())
+            if message.content == '.kaeya':
+                await message.channel.send(embed=guides.kaeya())
+            if message.content == '.keqing':
+                await message.channel.send(embed=guides.keqing())
+            if message.content == '.klee':
+                await message.channel.send(embed=guides.klee())
+            if message.content == '.lisa':
+                await message.channel.send(embed=guides.lisa())
+            if message.content == '.mona':
+                await message.channel.send(embed=guides.mona())
+            if message.content == '.ningguang':
+                await message.channel.send(embed=guides.ningguang())
+            if message.content == '.noelle':
+                await message.channel.send(embed=guides.noelle())
+            if message.content == '.qiqi':
+                await message.channel.send(embed=guides.qiqi())
+            if message.content == '.razor':
+                await message.channel.send(embed=guides.razor())
+            if message.content == '.sucrose':
+                await message.channel.send(embed=guides.sucrose())
+            if message.content == '.tartaglia':
+                await message.channel.send(embed=guides.tartaglia())
+            if message.content == '.anemo':
+                await message.channel.send(embed=guides.anemo())
+            if message.content == '.geo':
+                await message.channel.send(embed=guides.geo())
+            if message.content == '.venti':
+                await message.channel.send(embed=guides.venti())
+            if message.content == '.xiangling':
+                await message.channel.send(embed=guides.xiangling())
+            if message.content == '.xingqiu':
+                await message.channel.send(embed=guides.xingqiu())
+            if message.content == '.xinyan':
+                await message.channel.send("Coming soon! Stay tuned.")
+            if message.content == '.zhongli':
+                await message.channel.send("Coming soon! Stay tuned.")
 
     # role add and remove based on reaction, you need to add the message ID with the others. may be able to improve
     # this process to look cleaner on this end but it works
@@ -156,15 +250,35 @@ class MyClient(discord.Client):
         if message_id == 773764928497778719 or 773765122983854091 or 773765378803367946 or 773800977148149781:
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
-
             role = discord.utils.get(guild.roles, name=payload.emoji.name)
-
             if role is not None:
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
                 if payload.user_id == 749451840281641000:
                     return
                 elif member is not None:
                     await member.add_roles(role)
+        if message_id == 778694747966406666 or 778832000127074326:
+            guild_id = payload.guild_id
+            guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+            member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+            if payload.user_id == 749451840281641000:
+                return
+            elif member is not None:
+                if payload.emoji.name == "🇺🇸":
+                    na_role = discord.utils.get(guild.roles, name="NA")
+                    await member.add_roles(na_role)
+                if payload.emoji.name == "🇪🇺":
+                    eu_role = discord.utils.get(guild.roles, name="EU")
+                    await member.add_roles(eu_role)
+                if payload.emoji.name == "🇯🇵":
+                    as_role = discord.utils.get(guild.roles, name="AS")
+                    await member.add_roles(as_role)
+                if payload.emoji.name == "🇭🇰":
+                    sar_role = discord.utils.get(guild.roles, name="SAR")
+                    await member.add_roles(sar_role)
+                if payload.emoji.name == "📚":
+                    mangafiends_role = discord.utils.get(guild.roles, name="manga fiends")
+                    await member.add_roles(mangafiends_role)
 
     # the opposite of the reaction_remove command, I have it set up to give Guest role back if they were to not have
     # any active reactions to the roles_game embed but not to do so if they're removing react from any of the other
@@ -175,12 +289,10 @@ class MyClient(discord.Client):
         if message_id == 773749867121868800:
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
-
             member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
             role = discord.utils.get(guild.roles, name=payload.emoji.name)
             guest_role = discord.utils.get(member.guild.roles, name="Guest")
             game_roles = discord.utils.get(member.guild.roles, name='Sins' or 'Travelers')
-
             if role is not None:
                 await member.remove_roles(role)
                 if game_roles not in member.roles:
@@ -196,6 +308,25 @@ class MyClient(discord.Client):
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
                 if member is not None:
                     await member.remove_roles(role)
+        if message_id == 778694747966406666:
+            guild_id = payload.guild_id
+            guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+            member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+            if payload.user_id == 749451840281641000:
+                return
+            elif member is not None:
+                if payload.emoji.name == "🇺🇸":
+                    na_role = discord.utils.get(guild.roles, name="NA")
+                    await member.remove_roles(na_role)
+                if payload.emoji.name == "🇪🇺":
+                    eu_role = discord.utils.get(guild.roles, name="EU")
+                    await member.remove_roles(eu_role)
+                if payload.emoji.name == "🇯🇵":
+                    as_role = discord.utils.get(guild.roles, name="AS")
+                    await member.remove_roles(as_role)
+                if payload.emoji.name == "🇭🇰":
+                    sar_role = discord.utils.get(guild.roles, name="SAR")
+                    await member.remove_roles(sar_role)
 
     # bot login confirmation #
     async def on_ready(self):
