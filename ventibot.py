@@ -1,8 +1,10 @@
 import discord
 import random
+import asyncio
 from mangascrape import Scrape
 from ch_guides import Guides
-import asyncio
+from discord import Streaming
+
 
 scrape = Scrape()
 guides = Guides()
@@ -119,28 +121,164 @@ class MyClient(discord.Client):
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
         await message.channel.send(embed=world_level)
 
+    async def on_member_update(self, before, after):
+
+        # grabs announcements channel
+        ch = self.get_channel(749485617276125286)
+        # grabs user
+        kanda = self.get_user(629377169663066153)
+        twitch_url = 'https://www.twitch.tv/ohkanda'
+
+        if discord.member is kanda:
+            # if update is streaming
+            if isinstance(after.activity, Streaming):
+                # sends message to announcements channel with stream link
+                await ch.send(f"{before.mention} is streaming on {self.activity.platorm}: {self.activity.name}.\n"
+                              f"Join here: {self.activity.url}")
+                # changes presence to watching stream
+                await self.change_presence(activity=discord.Streaming(name="Kanda's Twitch stream", url=twitch_url))
+            # if update changes and was previously streaming
+            elif isinstance(before.activity, Streaming):
+                # changes presence back to original
+                await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=
+                                                                     'a ballad'))
+                for message in ch.history:
+                    if "streaming" in message.content:
+                        # deletes message made in announcement channel to reduce clutter
+                        await message.delete_message()
+
     async def manga_check(self):
         await self.wait_until_ready()
         # grabs manga-updates channel
         ch = self.get_channel(778448461162086440)
         while not self.is_closed():
             print('Updating manga..')
-            sl_string = scrape.sl_update()
-            # runs update function, if it comes back with an actual return it will send it to the channel
-            if sl_string:
-                await ch.send(sl_string)
-            csm_string = scrape.csm_update()
-            # runs update function, if it comes back with an actual return it will send it to the channel
-            if csm_string:
-                await ch.send(csm_string)
-            snk_string = scrape.snk_update()
-            # runs update function, if it comes back with an actual return it will send it to the channel
-            if snk_string:
-                await ch.send(snk_string)
-            jjk_string = scrape.jjk_update()
-            # runs update function, if it comes back with an actual return it will send it to the channel
-            if jjk_string:
-                await ch.send(jjk_string)
+
+            # solo leveling update
+            with open("slchapter.txt", "r+") as txt:
+                sl_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            sl_string = scrape.sl_chapter_check()
+            if sl_chapter != sl_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("slchapter.txt", "w+") as txt:
+                    txt.write(sl_string)
+                sl_link = scrape.sl_link()
+                sl_embed = discord.Embed(
+                    description='New Solo Leveling chapter!',
+                    colour=discord.Colour.red()
+                )
+                sl_embed.add_field(name="{}".format(sl_string), value='[View Here]({})'.format(sl_link))
+                sl_embed.set_thumbnail(url='https://cover.nep.li/cover/Solo-Leveling.jpg')
+                await ch.send(embed=sl_embed)
+
+            # csm update
+            with open("csmchapter.txt", "r+") as txt:
+                csm_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            csm_string = scrape.csm_chapter_check()
+            if csm_chapter != csm_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("csmchapter.txt", "w+") as txt:
+                    txt.write(csm_string)
+                csm_link = scrape.csm_link()
+                csm_embed = discord.Embed(
+                    description='New Chainsaw Man chapter!',
+                    colour=discord.Colour.red()
+                )
+                csm_embed.add_field(name="{}".format(csm_string), value='[View Here]({})'.format(csm_link))
+                csm_embed.set_thumbnail(url='https://cover.nep.li/cover/Chainsaw-Man.jpg')
+                await ch.send(embed=csm_embed)
+
+            with open("snkchapter.txt", "r+") as txt:
+                snk_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            snk_string = scrape.snk_chapter_check()
+            if snk_chapter != snk_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("snkchapter.txt", "w+") as txt:
+                    txt.write(snk_string)
+                snk_link = scrape.snk_link()
+                snk_embed = discord.Embed(
+                    description='New Attack on Titan chapter!',
+                    colour=discord.Colour.red()
+                )
+                snk_embed.add_field(name="{}".format(snk_string), value='[View Here]({})'.format(snk_link))
+                snk_embed.set_thumbnail(url='https://cover.nep.li/cover/Shingeki-No-Kyojin.jpg')
+                await ch.send(embed=snk_embed)
+
+            # jjk update
+            with open("jjkchapter.txt", "r+") as txt:
+                jjk_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            jjk_string = scrape.jjk_chapter_check()
+            if jjk_chapter != jjk_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("jjkchapter.txt", "w+") as txt:
+                    txt.write(jjk_string)
+                jjk_link = scrape.jjk_link()
+                jjk_embed = discord.Embed(
+                    description='New Jujutsu Kaisen chapter!',
+                    colour=discord.Colour.red()
+                )
+                jjk_embed.add_field(name="{}".format(jjk_string), value='[View Here]({})'.format(jjk_link))
+                jjk_embed.set_thumbnail(url='https://cover.nep.li/cover/Jujutsu-Kaisen.jpg')
+                await ch.send(embed=jjk_embed)
+
+            # berserk update
+            with open("brsrkchapter.txt", "r+") as txt:
+                brsrk_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            brsrk_string = scrape.brsrk_chapter_check()
+            if brsrk_chapter != brsrk_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("brsrkchapter.txt", "w+") as txt:
+                    txt.write(brsrk_string)
+                brsrk_link = scrape.brsrk_link()
+                brsrk_embed = discord.Embed(
+                    description='New Berserk chapter..? <:kekwtf:773683896688050236>',
+                    colour=discord.Colour.red()
+                )
+                brsrk_embed.add_field(name="{}".format(brsrk_string), value='[View Here]({})'.format(brsrk_link))
+                brsrk_embed.set_thumbnail(url='https://cover.nep.li/cover/Berserk.jpg')
+                await ch.send(embed=brsrk_embed)
+
+            # black clover update
+            with open("bcchapter.txt", "r+") as txt:
+                bc_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            bc_string = scrape.bc_chapter_check()
+            if bc_chapter != bc_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("bcchapter.txt", "w+") as txt:
+                    txt.write(bc_string)
+                bc_link = scrape.bc_link()
+                bc_embed = discord.Embed(
+                    description='New Black Clover chapter!',
+                    colour=discord.Colour.red()
+                )
+                bc_embed.add_field(name="{}".format(bc_string), value='[View Here]({})'.format(bc_link))
+                bc_embed.set_thumbnail(url='https://cover.nep.li/cover/Black-Clover.jpg')
+                await ch.send(embed=bc_embed)
+
+            # Tower of God update
+            with open("togchapter.txt", "r+") as txt:
+                tog_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            tog_string = scrape.tog_chapter_check()
+            if tog_chapter != tog_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("togchapter.txt", "w+") as txt:
+                    txt.write(tog_string)
+                tog_link = scrape.tog_link()
+                tog_embed = discord.Embed(
+                    description='New Tower of God chapter!',
+                    colour=discord.Colour.red()
+                )
+                tog_embed.add_field(name="{}".format(tog_string), value='[View Here]({})'.format(tog_link))
+                tog_embed.set_thumbnail(url='https://cover.nep.li/cover/Tower-Of-God.jpg')
+                await ch.send(embed=tog_embed)
+
             print('Manga update finished!')
             # sleeps for 15 minutes then loops through again to try and catch new updates when they release
             await asyncio.sleep(600)
@@ -161,6 +299,8 @@ class MyClient(discord.Client):
 
     # on message functions (bot commands) (prefix: '.')
     async def on_message(self, message):
+        if message.author == self.user:
+            return
         if message.content.startswith('.'):
             # on message it will grab the list created from get_list function and randomly mention someone in the list
             if message.content == '.winner':
@@ -169,6 +309,24 @@ class MyClient(discord.Client):
                         giveaway_winner = random.choice(self.get_list(message))
                         winner_message = 'Congrats {}, you have won the giveaway!'.format(giveaway_winner.name)
                         await message.channel.send(winner_message)
+            # posts a user's avatar in chat
+            if message.content.startswith('.avatar'):
+                if message.mentions == []:
+                    sender = message.author
+                    userpfp = sender.avatar_url
+                    pfpembed = discord.Embed(
+                    )
+                    pfpembed.add_field(name='Avatar Scraper', value='user: {}'.format(sender))
+                    pfpembed.set_image(url=userpfp)
+                    await message.channel.send(embed=pfpembed)
+                else:
+                    user = message.mentions[0]
+                    userpfp = user.avatar_url
+                    pfpembed = discord.Embed(
+                    )
+                    pfpembed.add_field(name='Avatar Scraper', value='user: {}'.format(user))
+                    pfpembed.set_image(url=userpfp)
+                    await message.channel.send(embed=pfpembed)
             # function can be used to call embeds or something else, just here in case I ever need it
             if message.content == '.amber':
                 await message.channel.send(embed=guides.amber())
@@ -331,11 +489,16 @@ class MyClient(discord.Client):
     # bot login confirmation #
     async def on_ready(self):
         print('Logged on as', self.user)
+        # once bot connects to discord it will begin the manga check loop
+        await self.loop.create_task(self.manga_check())
 
     # functions to run when bot logs in #
     async def on_connect(self):
-        # once bot connects to discord it will begin the manga check loop
-        await self.loop.create_task(self.manga_check())
+        print('Connected')
+        # updates online presence
+        await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=
+        'a ballad'))
+
 
     # sends welcome_message embed in welcome text channel whenever someone joins and also gives them Guest role so
     # no one in the server will be role-less
