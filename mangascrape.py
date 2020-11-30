@@ -4,169 +4,127 @@ import requests
 
 class Scrape:
     def jjk_chapter_check(self):
-        # source url
-        source = requests.get('https://www.readjujutsukaisen.com/').text
+        jjkxml = 'https://mangasee123.com/rss/Jujutsu-Kaisen.xml'
+        source = requests.get(jjkxml).text
         soup = BeautifulSoup(source, 'lxml')
-        # loops through all fields with specified class
-        contents = soup.find_all(class_="col-span-3")
-        # newest_chp is the 2nd chapter in the list, aka latest uploaded/updated
-        # newest_chp = contents[5]
-        # chp_number is only the text portion showing chp number
-        chp_number = contents[5].a.text
-        return chp_number
+        contents = soup.find_all('title')
+        print(contents)
+        new_chp = contents[2].text
+        return new_chp
 
     def jjk_link(self):
-        # source url
-        source = requests.get('https://www.readjujutsukaisen.com/').text
-        soup = BeautifulSoup(source, 'lxml')
-        # loops through all fields with specified class
-        contents = soup.find_all(class_="col-span-3")
-        # newest_chp is the 2nd chapter in the list, aka latest uploaded/updated
-        # newest_chp = contents[5]
-        # chp_link is hyperlink for new chapter
-        chp_link = contents[5].a['href']
+        jjkxml = 'https://mangasee123.com/rss/Jujutsu-Kaisen.xml'
+        source = requests.get(jjkxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        print(contents)
+        chp_link = contents[3].text
         return chp_link
-
-    def jjk_update(self):
-        # open txt file in read
-        # reads txt file contents
-        with open("jjkchapter.txt", "r+") as txt:
-            jjk_chapter = txt.read()
-        # checks to see if chapter from scrape is different to saved
-        jjk_string = self.jjk_chapter_check()
-        if jjk_chapter != jjk_string:
-            # chapter is different so rewrites file and constructs update message with link to new chapter
-            with open("jjkchapter.txt", "w+") as txt:
-                txt.write(jjk_string)
-            jjk_link = self.jjk_link()
-            ch_message = "New JJK chapter uploaded! {}".format(jjk_link)
-            return ch_message
-        else:
-            # chapter is the same so will return nothing
-            return ""
 
     def csm_chapter_check(self):
-        # source url
-        source = requests.get('https://www.readchainsawman.com/').text
+        csmxml = 'https://mangasee123.com/rss/Chainsaw-Man.xml'
+        source = requests.get(csmxml).text
         soup = BeautifulSoup(source, 'lxml')
-        # loops through all fields with specified class
-        contents = soup.find_all(class_="col-span-3")
-        # newest_chp is the 2nd chapter in the list, aka latest uploaded/updated
-        # newest_chp = contents[5]
-        # chp_number is only the text portion showing chp number
-        chp_number = contents[5].a.text
-        return chp_number
+        contents = soup.find_all('title')
+        print(contents)
+        new_chp = contents[2].text
+        return new_chp
 
     def csm_link(self):
-        # source url
-        source = requests.get('https://www.readchainsawman.com/').text
-        soup = BeautifulSoup(source, 'lxml')
-        # loops through all fields with specified class
-        contents = soup.find_all(class_="col-span-3")
-        # newest_chp is the 2nd chapter in the list, aka latest uploaded/updated
-        # newest_chp = contents[5]
-        # chp_link is hyperlink for new chapter
-        chp_link = contents[5].a['href']
+        csmxml = 'https://mangasee123.com/rss/Chainsaw-Man.xml'
+        source = requests.get(csmxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        print(contents)
+        chp_link = contents[3].text
         return chp_link
-
-    def csm_update(self):
-        # open txt file in read
-        # reads txt file contents
-        with open("csmchapter.txt", "r+") as txt:
-            csm_chapter = txt.read()
-        # checks to see if chapter from scrape is different to saved
-        csm_string = self.csm_chapter_check()
-        if csm_chapter != csm_string:
-            # chapter is different so rewrites file and constructs update message with link to new chapter
-            with open("csmchapter.txt", "w+") as txt:
-                txt.write(csm_string)
-            csm_link = self.csm_link()
-            ch_message = "New CSM chapter uploaded! {}".format(csm_link)
-            return ch_message
-        else:
-            # chapter is the same so will return nothing
-            return ""
 
     def snk_chapter_check(self):
-        # source url
-        source = requests.get('https://www.readsnk.com/').text
+        snkxml = 'https://mangasee123.com/rss/Shingeki-No-Kyojin.xml'
+        source = requests.get(snkxml).text
         soup = BeautifulSoup(source, 'lxml')
-        # loops through all fields with specified class
-        contents = soup.find_all(class_="flex flex-col")
-        # newest_chp is the 1st chapter in the list, aka latest uploaded/updated
-        # newest_chp = contents[0]
-        # chp_number is only the text portion showing chp number
-        chp_number = contents[0].a.text
-        return chp_number
+        contents = soup.find_all('title')
+        print(contents)
+        new_chp = contents[2].text
+        return new_chp
 
     def snk_link(self):
-        # source url
-        source = requests.get('https://www.readsnk.com/').text
-        soup = BeautifulSoup(source, 'lxml')
-        # loops through all fields with specified class
-        contents = soup.find_all(class_="flex flex-col")
-        # newest_chp is the 1st chapter in the list, aka latest uploaded/updated
-        # newest_chp = contents[0]
-        # chp_link is hyperlink for new chapter
-        chp_link = contents[0].a['href']
+        snkxml = 'https://mangasee123.com/rss/Shingeki-No-Kyojin.xml'
+        source = requests.get(snkxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        print(contents)
+        chp_link = contents[3].text
         return chp_link
-
-    def snk_update(self):
-        # open txt file in read
-        # reads txt file contents
-        with open("snkchapter.txt", "r+") as txt:
-            snk_chapter = txt.read()
-        # checks to see if chapter from scrape is different to saved
-        snk_string = self.snk_chapter_check()
-        if snk_chapter != snk_string:
-            # chapter is different so rewrites file and constructs update message with link to new chapter
-            with open("snkchapter.txt", "w+") as txt:
-                txt.write(snk_string)
-            snk_link = self.snk_link()
-            ch_message = "New SnK chapter uploaded! {}".format(snk_link)
-            return ch_message
-        else:
-            # chapter is the same so will return nothing
-            return ""
 
     def sl_chapter_check(self):
-        # source url
-        source = requests.get('https://readsololeveling.org/').text
+        slxml = 'https://mangasee123.com/rss/Solo-Leveling.xml'
+        source = requests.get(slxml).text
         soup = BeautifulSoup(source, 'lxml')
-        # loops through all fields with specified class
-        contents = soup.find_all(class_="flex flex-col")
-        # newest_chp is the 2nd chapter in the list, aka latest uploaded/updated
-        # newest_chp = contents[1]
-        # chp_number is only the text portion showing chp number
-        chp_number = contents[1].a.text
-        return chp_number
+        contents = soup.find_all('title')
+        print(contents)
+        new_chp = contents[2].text
+        return new_chp
 
     def sl_link(self):
-        # source url
-        source = requests.get('https://readsololeveling.org/').text
-        soup = BeautifulSoup(source, 'lxml')
-        # loops through all fields with specified class
-        contents = soup.find_all(class_="flex flex-col")
-        # newest_chp is the 2nd chapter in the list, aka latest uploaded/updated
-        # newest_chp = contents[1]
-        # chp_link is hyperlink for new chapter
-        chp_link = contents[1].a['href']
+        slxml = 'https://mangasee123.com/rss/Solo-Leveling.xml'
+        source = requests.get(slxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        print(contents)
+        chp_link = contents[3].text
         return chp_link
 
-    def sl_update(self):
-        # open txt file in read
-        # reads txt file contents
-        with open("slchapter.txt", "r+") as txt:
-            sl_chapter = txt.read()
-        # checks to see if chapter from scrape is different to saved
-        sl_string = self.sl_chapter_check()
-        if sl_chapter != sl_string:
-            # chapter is different so rewrites file and constructs update message with link to new chapter
-            with open("slchapter.txt", "w+") as txt:
-                txt.write(sl_string)
-            sl_link = self.sl_link()
-            ch_message = "New Solo Leveling chapter uploaded! {}".format(sl_link)
-            return ch_message
-        else:
-            # chapter is the same so will return nothing
-            return ""
+    def brsrk_chapter_check(self):
+        brsrkxml = 'https://mangasee123.com/rss/Berserk.xml'
+        source = requests.get(brsrkxml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        print(contents)
+        new_chp = contents[2].text
+        return new_chp
+
+    def brsrk_link(self):
+        brsrkxml = 'https://mangasee123.com/rss/Berserk.xml'
+        source = requests.get(brsrkxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        print(contents)
+        chp_link = contents[3].text
+        return chp_link
+
+    def bc_chapter_check(self):
+        bcxml = 'https://mangasee123.com/rss/Black-Clover.xml'
+        source = requests.get(bcxml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        print(contents)
+        new_chp = contents[2].text
+        return new_chp
+
+    def bc_link(self):
+        bcxml = 'https://mangasee123.com/rss/Black-Clover.xml'
+        source = requests.get(bcxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        print(contents)
+        chp_link = contents[3].text
+        return chp_link
+
+    def tog_chapter_check(self):
+        togxml = 'https://mangasee123.com/rss/Tower-Of-God.xml'
+        source = requests.get(togxml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        print(contents)
+        new_chp = contents[2].text
+        return new_chp
+
+    def tog_link(self):
+        togxml = 'https://mangasee123.com/rss/Tower-Of-God.xml'
+        source = requests.get(togxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        print(contents)
+        chp_link = contents[3].text
+        return chp_link
