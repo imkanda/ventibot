@@ -1,125 +1,23 @@
 import discord
 import random
 import asyncio
+import time
+import pandas as pd
+from wish import Wish
+from embeds import Embeds
 from mangascrape import Scrape
 from ch_guides import Guides
+from ch_guides import clientkey
 from discord import Streaming
 
-
+wish = Wish()
+embeds = Embeds()
 scrape = Scrape()
 guides = Guides()
 
 
 class MyClient(discord.Client):
-
-    # embeds #
-
-    # welcome message embed, inputs member's name and the channel ID for #self-roles in the message
-    async def welcome_message(self, channel, member):
-        welcome_message = discord.Embed(
-            description='Welcome to The Hole, {}. \n Make sure to check out <#749485522447237211> for obtaining roles.'.format(
-                member.mention),
-            colour=discord.Colour.blue()
-        )
-        welcome_message.set_footer(text='Enjoy your stay')
-        welcome_message.set_image(
-            url='https://cdn.discordapp.com/attachments/772150088599863296/772174651027226654/tenor.gif')
-        welcome_message.set_author(name='Venti',
-                                   icon_url='https://cdn.discordapp.com/attachments/772150088599863296'
-                                            '/772174650234372146/41.png')
-        await channel.send(embed=welcome_message)
-
-    # embed inside #self-roles for choosing game role, either Travelers for Genshin or Sins for 7DS: Grand Cross
-    async def roles_game(self, message):
-        roles_game = discord.Embed(
-            description="React to gain the below selections!",
-            colour=discord.Colour.red()
-        )
-        roles_game.set_footer(text="Game Roles")
-        roles_game.add_field(name='Genshin Impact',
-                             value='React with <:Travelers:773690222118174750> for Genshin Impact', inline=True)
-        roles_game.add_field(name='7DS: Grand Cross', value='React with <:Sins:773689968719036496> for Grand Cross',
-                             inline=True)
-        await message.channel.send(embed=roles_game)
-
-    # embed inside #self-roles for choosing genshin server
-    async def server_select(self, message):
-        server_select = discord.Embed(
-            description="React to display your Genshin server/region!",
-            colour=discord.Colour.red()
-        )
-        server_select.set_footer(text="Server Select")
-        server_select.add_field(name='NA', value='React with 🇺🇸 for NA', inline=False)
-        server_select.add_field(name='EU', value='React with 🇪🇺 for EU', inline=True)
-        server_select.add_field(name='AS', value='React with 🇯🇵 for AS', inline=False)
-        server_select.add_field(name='SAR', value='React with 🇭🇰 for SAR', inline=True)
-        await message.channel.send(embed=server_select)
-
-    async def role_info(self, message):
-        role_info = discord.Embed(
-            description="Below is some info on roles here in The Hole",
-            colour=discord.Colour.red()
-        )
-        role_info.set_thumbnail(url=
-            "https://cdn.discordapp.com/attachments/772150088599863296/778844565255094312/954bfd00b5ef97c3444b5494541eded8.png")
-        role_info.set_footer(text="Server Info")
-        role_info.add_field(name="Makima's Dog", value="Kanda's role <:pepeboss:773671306893197323>",
-                            inline=False)
-        role_info.add_field(name='Fatui Harbingers', value='Server moderators', inline=False)
-        role_info.add_field(name='Knights of Favonius', value='Top 5 active in the server ([Leaderboard]'
-                                                              '(https://mee6.xyz/leaderboard/749438385042751549))',
-                            inline=False)
-        role_info.add_field(name='Travelers', value='Genshin Impact players', inline=False)
-        role_info.add_field(name='Sins', value='SDS: Grand Cross players', inline=False)
-        role_info.add_field(name='Manga Fiends', value='People who want updated when new manga chapters come out in '
-                                                       '<#778448461162086440>', inline=False)
-        role_info.add_field(name='Server Booster', value='Currently boosting The Hole using their Discord Nitro! '
-                                                         '<:kannalove:778843977838624788>', inline=False)
-        role_info.add_field(name='Guest/Friends', value="Users who don't play games or haven't visited <#749485522447237211> "
-                                                        "yet!", inline=False)
-        role_info.add_field(name='Bots', value='Friendly Discord bots', inline=False)
-        await message.channel.send(embed=role_info)
-
-    # embed inside #self-roles for choosing world level, was requested by the server to better see who they can actually
-    # co-op with for relevant rewards or just to help out
-    async def world_level(self, message):
-        world_level = discord.Embed(
-            description="React to assign your current world level, can be changed at any time!"
-        )
-        world_level.set_footer(text="World Level Assign")
-        world_level.add_field(name=chr(173), value='React with <:WL0:773789639127465986> for World Level 0',
-                              inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 1-19', inline=True)
-        world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL1:773789389742276620> for World Level 1',
-                              inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 20-24', inline=True)
-        world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL2:773789389594558477> for World Level 2',
-                              inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 25-29', inline=True)
-        world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL3:773789389968375808> for World Level 3',
-                              inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 30-34', inline=True)
-        world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL4:773789389934428190> for World Level 4',
-                              inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 35-39', inline=True)
-        world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL5:773789390001668106> for World Level 5',
-                              inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 40-44', inline=True)
-        world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL6:773789390010449941> for World Level 6',
-                              inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 45-49', inline=True)
-        world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL7:773789562329497601> for World Level 7',
-                              inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 50+', inline=True)
-        world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        await message.channel.send(embed=world_level)
+    embedDic = {}
 
     async def on_member_update(self, before, after):
 
@@ -128,22 +26,23 @@ class MyClient(discord.Client):
         # grabs user
         kanda = self.get_user(629377169663066153)
         twitch_url = 'https://www.twitch.tv/ohkanda'
+        subject = before
 
-        if discord.member is kanda:
+        if subject == kanda:
             # if update is streaming
             if isinstance(after.activity, Streaming):
                 # sends message to announcements channel with stream link
-                await ch.send(f"{before.mention} is streaming on {self.activity.platorm}: {self.activity.name}.\n"
-                              f"Join here: {self.activity.url}")
+                await ch.send(f"{before.mention} is streaming on {after.activity.platform}: {after.activity.name}.\n"
+                              f"Join here: {after.activity.name}")
                 # changes presence to watching stream
                 await self.change_presence(activity=discord.Streaming(name="Kanda's Twitch stream", url=twitch_url))
             # if update changes and was previously streaming
             elif isinstance(before.activity, Streaming):
                 # changes presence back to original
-                await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=
-                                                                     'a ballad'))
-                for message in ch.history:
-                    if "streaming" in message.content:
+                await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='a '
+                                                                                                               'ballad'))
+                async for message in ch.history(limit=100):
+                    if "streaming" in message.content and message.author == self.user:
                         # deletes message made in announcement channel to reduce clutter
                         await message.delete_message()
 
@@ -327,61 +226,344 @@ class MyClient(discord.Client):
                     pfpembed.add_field(name='Avatar Scraper', value='user: {}'.format(user))
                     pfpembed.set_image(url=userpfp)
                     await message.channel.send(embed=pfpembed)
-            # function can be used to call embeds or something else, just here in case I ever need it
-            if message.content == '.amber':
-                await message.channel.send(embed=guides.amber())
-            if message.content == '.barbara':
-                await message.channel.send(embed=guides.barbara())
-            if message.content == '.beidou':
-                await message.channel.send(embed=guides.beidou())
-            if message.content == '.bennett':
-                await message.channel.send(embed=guides.bennett())
-            if message.content == '.chongyun':
-                await message.channel.send(embed=guides.chongyun())
-            if message.content == '.diluc':
-                await message.channel.send(embed=guides.diluc())
-            if message.content == '.diona':
-                await message.channel.send(embed=guides.diona())
-            if message.content == '.fischl':
-                await message.channel.send(embed=guides.fischl())
-            if message.content == '.jean':
-                await message.channel.send(embed=guides.jean())
-            if message.content == '.kaeya':
-                await message.channel.send(embed=guides.kaeya())
-            if message.content == '.keqing':
-                await message.channel.send(embed=guides.keqing())
-            if message.content == '.klee':
-                await message.channel.send(embed=guides.klee())
-            if message.content == '.lisa':
-                await message.channel.send(embed=guides.lisa())
-            if message.content == '.mona':
-                await message.channel.send(embed=guides.mona())
-            if message.content == '.ningguang':
-                await message.channel.send(embed=guides.ningguang())
-            if message.content == '.noelle':
-                await message.channel.send(embed=guides.noelle())
-            if message.content == '.qiqi':
-                await message.channel.send(embed=guides.qiqi())
-            if message.content == '.razor':
-                await message.channel.send(embed=guides.razor())
-            if message.content == '.sucrose':
-                await message.channel.send(embed=guides.sucrose())
-            if message.content == '.tartaglia':
-                await message.channel.send(embed=guides.tartaglia())
-            if message.content == '.anemo':
-                await message.channel.send(embed=guides.anemo())
-            if message.content == '.geo':
-                await message.channel.send(embed=guides.geo())
-            if message.content == '.venti':
-                await message.channel.send(embed=guides.venti())
-            if message.content == '.xiangling':
-                await message.channel.send(embed=guides.xiangling())
-            if message.content == '.xingqiu':
-                await message.channel.send(embed=guides.xingqiu())
-            if message.content == '.xinyan':
-                await message.channel.send("Coming soon! Stay tuned.")
-            if message.content == '.zhongli':
-                await message.channel.send("Coming soon! Stay tuned.")
+            if message.content == '.help':
+                await message.channel.send(embed=embeds.help_embed())
+            if message.content.startswith('.mute'):
+                guild = self.get_guild(749438385042751549)
+                mods = discord.utils.get(guild.roles, name="Fatui Harbingers")
+                owner = discord.utils.get(guild.roles, name="Makima's Dog")
+                author_roles = message.author.roles
+                if mods in author_roles:
+                    if message.mentions != []:
+                        user_uname = message.mentions[0]
+                        muted = discord.utils.get(guild.roles, name='Muted')
+                        if user_uname is not None:
+                            if muted in user_uname.roles:
+                                await message.channel.send('User is already muted.')
+                                return
+                            else:
+                                await user_uname.add_roles(muted)
+                                await message.channel.send('User has been muted.')
+                                return
+                if owner in author_roles:
+                    if message.mentions != []:
+                        user_uname = message.mentions[0]
+                        muted = discord.utils.get(guild.roles, name='Muted')
+                        if user_uname is not None:
+                            if muted in user_uname.roles:
+                                await message.channel.send('User is already muted.')
+                                return
+                            else:
+                                await user_uname.add_roles(muted)
+                                await message.channel.send('User has been muted.')
+                                return
+                    else:
+                        await message.channel.send('Please mention a user to mute.')
+                        return
+                else:
+                    await message.channel.send('Only staff members can mute.')
+                    return
+            if message.content.startswith('.unmute'):
+                guild = self.get_guild(749438385042751549)
+                mods = discord.utils.get(guild.roles, name="Fatui Harbingers")
+                owner = discord.utils.get(guild.roles, name="Makima's Dog")
+                author_roles = message.author.roles
+                if mods in author_roles:
+                    if message.mentions != []:
+                        user_uname = message.mentions[0]
+                        muted = discord.utils.get(guild.roles, name='Muted')
+                        if user_uname is not None:
+                            if muted in user_uname.roles:
+                                await user_uname.remove_roles(muted)
+                                await message.channel.send('User has been unmuted.')
+                                return
+                            else:
+                                await message.channel.send('This user is not muted.')
+                                return
+                if owner in author_roles:
+                    if message.mentions != []:
+                        user_uname = message.mentions[0]
+                        muted = discord.utils.get(guild.roles, name='Muted')
+                        if user_uname is not None:
+                            if muted in user_uname.roles:
+                                await user_uname.remove_roles(muted)
+                                await message.channel.send('User has been unmuted.')
+                                return
+                            else:
+                                await message.channel.send('This user is not muted.')
+                                return
+                    else:
+                        await message.channel.send('Please mention a user to mute.')
+                        return
+                else:
+                    await message.channel.send("Only staff members can unmute.")
+                    return
+            if message.content == '.wish':
+                wish_ch = self.get_channel(784964222899453972)
+                if message.channel == wish_ch:
+                    multipull = wish.wishmulti_nonpity()
+                    if "5" in multipull[2]:
+                        rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
+                        embed_colour = discord.Colour.gold()
+                    else:
+                        rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
+                        embed_colour = discord.Colour.purple()
+                    emoji_pull = multipull[0]
+                    name_pull = multipull[1]
+                    first_pull = f"{emoji_pull[0]} {name_pull[0]}"
+                    second_pull = f"{emoji_pull[1]} {name_pull[1]}"
+                    third_pull = f"{emoji_pull[2]} {name_pull[2]}"
+                    fourth_pull = f"{emoji_pull[3]} {name_pull[3]}"
+                    fifth_pull = f"{emoji_pull[4]} {name_pull[4]}"
+                    sixth_pull = f"{emoji_pull[5]} {name_pull[5]}"
+                    seventh_pull = f"{emoji_pull[6]} {name_pull[6]}"
+                    eighth_pull = f"{emoji_pull[7]} {name_pull[7]}"
+                    ninth_pull = f"{emoji_pull[8]} {name_pull[8]}"
+                    tenth_pull = f"{emoji_pull[9]} {name_pull[9]}"
+
+                    wishing_embed = discord.Embed(
+                        description='{}, ten stars fall from the sky..'.format(message.author.mention),
+                        colour=discord.Colour(0x82d9f9)
+                    )
+                    wishing_embed.set_image(url=rarity_gif)
+                    wishing_embed.set_footer(text='Wishes')
+                    await message.channel.send(embed=wishing_embed)
+
+                    time.sleep(4)
+
+                    wish_embed = discord.Embed(
+                        description='{}, below are your pulls!'.format(message.author.mention),
+                        colour=embed_colour
+                    )
+                    wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
+                    wish_embed.add_field(name=chr(173), value=second_pull, inline=False)
+                    wish_embed.add_field(name=chr(173), value=third_pull, inline=False)
+                    wish_embed.add_field(name=chr(173), value=fourth_pull, inline=False)
+                    wish_embed.add_field(name=chr(173), value=fifth_pull, inline=False)
+                    wish_embed.add_field(name=chr(173), value=sixth_pull, inline=False)
+                    wish_embed.add_field(name=chr(173), value=seventh_pull, inline=False)
+                    wish_embed.add_field(name=chr(173), value=eighth_pull, inline=False)
+                    wish_embed.add_field(name=chr(173), value=ninth_pull, inline=False)
+                    wish_embed.add_field(name=chr(173), value=tenth_pull, inline=False)
+                    wish_embed.set_footer(text='Wishes')
+                    await message.channel.send(embed=wish_embed)
+                else:
+                    await message.channel.send('Please use wish commands in <#784964222899453972> only!')
+
+            if message.content == '.wish multi':
+                wish_ch = self.get_channel(787520738118598656)
+                if message.channel == wish_ch:
+                    userid = message.author.id
+                    primo_check = wish.primo_check(userid)
+                    if primo_check == 'NONE':
+                        await message.channel.send('{}, you have not been registered yet. Use .daily to be able to '
+                                                   'wish.'.format(message.author.mention))
+                    else:
+                        initial_primos = primo_check[0]
+                        index = primo_check[1]
+                        if int(initial_primos) >= 1600:
+                            sub_primos = int(initial_primos) - 1600
+                            contents = pd.read_csv('server_wishes.csv', dtype=str)
+                            contents.at[index, 'primos'] = sub_primos
+                            contents.to_csv('server_wishes.csv', index=False)
+                            multipull = wish.wishmulti_pity(userid, index)
+                            emoji_pull = multipull[0]
+                            name_pull = multipull[1]
+                            wish.dupes(userid, index, name_pull)
+                            if "5" in multipull[2]:
+                                rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
+                                embed_colour = discord.Colour.gold()
+                            else:
+                                rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
+                                embed_colour = discord.Colour.purple()
+                            first_pull = f"{emoji_pull[0]} {name_pull[0]}"
+                            second_pull = f"{emoji_pull[1]} {name_pull[1]}"
+                            third_pull = f"{emoji_pull[2]} {name_pull[2]}"
+                            fourth_pull = f"{emoji_pull[3]} {name_pull[3]}"
+                            fifth_pull = f"{emoji_pull[4]} {name_pull[4]}"
+                            sixth_pull = f"{emoji_pull[5]} {name_pull[5]}"
+                            seventh_pull = f"{emoji_pull[6]} {name_pull[6]}"
+                            eighth_pull = f"{emoji_pull[7]} {name_pull[7]}"
+                            ninth_pull = f"{emoji_pull[8]} {name_pull[8]}"
+                            tenth_pull = f"{emoji_pull[9]} {name_pull[9]}"
+
+                            wishing_embed = discord.Embed(
+                                description='{}, ten stars fall from the sky..'.format(message.author.mention),
+                                colour=discord.Colour(0x82d9f9)
+                            )
+                            wishing_embed.set_image(url=rarity_gif)
+                            wishing_embed.set_footer(text='Wishes')
+                            await message.channel.send(embed=wishing_embed)
+
+                            time.sleep(4)
+
+                            wish_embed = discord.Embed(
+                                description='{}, below are your pulls!'.format(message.author.mention),
+                                colour=embed_colour
+                            )
+                            wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
+                            wish_embed.add_field(name=chr(173), value=second_pull, inline=False)
+                            wish_embed.add_field(name=chr(173), value=third_pull, inline=False)
+                            wish_embed.add_field(name=chr(173), value=fourth_pull, inline=False)
+                            wish_embed.add_field(name=chr(173), value=fifth_pull, inline=False)
+                            wish_embed.add_field(name=chr(173), value=sixth_pull, inline=False)
+                            wish_embed.add_field(name=chr(173), value=seventh_pull, inline=False)
+                            wish_embed.add_field(name=chr(173), value=eighth_pull, inline=False)
+                            wish_embed.add_field(name=chr(173), value=ninth_pull, inline=False)
+                            wish_embed.add_field(name=chr(173), value=tenth_pull, inline=False)
+                            wish_embed.set_footer(text='Wishes')
+                            await message.channel.send(embed=wish_embed)
+                            wish_count = int(wish.wishes_check(userid)) + 10
+                            contents = pd.read_csv('server_wishes.csv', dtype=str)
+                            contents.at[index, 'wishes'] = wish_count
+                            contents.to_csv('server_wishes.csv', index=False)
+                        else:
+                            await message.channel.send('Sorry {}, you do not have enough primos for this wish '
+                                                       'amount'.format(message.author.mention))
+                else:
+                    wish_casual = self.get_channel(784964222899453972)
+                    if message.channel == wish_casual:
+                        await message.channel.send("You're in <#784964222899453972>, use .wish. (NO CATALOG TRACKING)")
+                    else:
+                        await message.channel.send('Please use .wish multi in <#787520738118598656> only!')
+
+
+            if message.content == '.wish single':
+                wish_ch = self.get_channel(787520738118598656)
+                if message.channel == wish_ch:
+                    userid = message.author.id
+                    primo_check = wish.primo_check(userid)
+                    if primo_check == 'NONE':
+                        await message.channel.send('{}, you have not been registered yet. Use .daily to be able to '
+                                                   'wish.'.format(message.author.mention))
+                    else:
+                        initial_primos = primo_check[0]
+                        index = primo_check[1]
+                        initial_pitys = wish.pity_check(userid)
+                        fourstar_pity = int(initial_pitys[0])
+                        fivestar_pity = int(initial_pitys[1])
+                        if int(initial_primos) >= 160:
+                            sub_primos = int(initial_primos) - 160
+                            contents = pd.read_csv('server_wishes.csv', dtype=str)
+                            contents.at[index, 'primos'] = sub_primos
+                            contents.to_csv('server_wishes.csv', index=False)
+                            pull = wish.wishsingle_pity(userid, index)
+                            emoji_pull = pull[0]
+                            name_pull = pull[1]
+                            wish.dupes(userid, index, name_pull)
+                            if "5" in pull[2]:
+                                rarity_gif = 'https://media1.tenor.com/images/0fd8cfa923ed50e19bf16d76de52055a/tenor.gif'
+                                embed_colour = discord.Colour.gold()
+                                contents = pd.read_csv('server_wishes.csv', dtype=str)
+                                contents.at[index, 'five_pity'] = 0
+                                contents.at[index, 'four_pity'] = fourstar_pity + 1
+                                contents.to_csv('server_wishes.csv', index=False)
+                            elif "4" in pull[2]:
+                                rarity_gif = 'https://media1.tenor.com/images/a2d4acc6cce5e248079ae69a4ee872af/tenor.gif'
+                                embed_colour = discord.Colour.purple()
+                                contents = pd.read_csv('server_wishes.csv', dtype=str)
+                                contents.at[index, 'four_pity'] = 0
+                                contents.at[index, 'five_pity'] = fivestar_pity + 1
+                                contents.to_csv('server_wishes.csv', index=False)
+                            else:
+                                rarity_gif = 'https://media1.tenor.com/images/9778d97b6d6ed00ceb116b5827c9c435/tenor.gif'
+                                embed_colour = discord.Colour(0x82d9f9)
+                                contents = pd.read_csv('server_wishes.csv', dtype=str)
+                                contents.at[index, 'four_pity'] = fourstar_pity + 1
+                                contents.at[index, 'five_pity'] = fivestar_pity + 1
+                                contents.to_csv('server_wishes.csv', index=False)
+
+                            first_pull = f"{emoji_pull[0]} {name_pull[0]}"
+
+                            wishing_embed = discord.Embed(
+                                description='{}, one star falls from the sky..'.format(message.author.mention),
+                                colour=discord.Colour(0x82d9f9)
+                            )
+                            wishing_embed.set_image(url=rarity_gif)
+                            wishing_embed.set_footer(text='Wishes')
+                            await message.channel.send(embed=wishing_embed)
+
+                            time.sleep(4)
+
+                            wish_embed = discord.Embed(
+                                description='{}, below are your pulls!'.format(message.author.mention),
+                                colour=embed_colour
+                            )
+                            wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
+                            wish_embed.set_footer(text='Wishes')
+                            await message.channel.send(embed=wish_embed)
+                            wish_count = int(wish.wishes_check(userid)) + 1
+                            contents = pd.read_csv('server_wishes.csv', dtype=str)
+                            contents.at[index, 'wishes'] = wish_count
+                            contents.to_csv('server_wishes.csv', index=False)
+                        else:
+                            await message.channel.send('Sorry {}, you do not have enough primos for this wish '
+                                                       'amount'.format(message.author.mention))
+                else:
+                    wish_casual = self.get_channel(784964222899453972)
+                    if message.channel == wish_casual:
+                        await message.channel.send("You're in <#784964222899453972>, use .wish. (NO CATALOG TRACKING)")
+                    else:
+                        await message.channel.send('Please use .wish multi in <#787520738118598656> only!')
+            if message.content == '.daily':
+                userid = message.author.id
+                cooldown = message.created_at
+                primos = wish.daily_primo(userid, cooldown)
+                if primos:
+                    await message.channel.send(f'Dailies completed, nice job {message.author.mention}! You now have'
+                                               f' {primos} primos.')
+                else:
+                    await message.channel.send('{}, you must wait until tomorrow to do your dailies again'.format(
+                        message.author.mention))
+            if message.content == '.primos':
+                wish_ch = self.get_channel(787520738118598656)
+                if message.channel == wish_ch:
+                    userid = message.author.id
+                    primo_check = wish.primo_check(userid)
+                    primos = str(primo_check[0])
+                    if primo_check == 'NONE':
+                        await message.channel.send('{}, you have not been registered yet. Use .daily to gain primos to '
+                                                   'wish and earn units!'.format(message.author.mention))
+                    else:
+                        await message.channel.send(f'{message.author.mention}, you currently have {primos} primos.')
+                else:
+                    await message.channel.send('Please use .primos in <#787520738118598656> only!')
+            if message.content == '.pity':
+                wish_ch = self.get_channel(787520738118598656)
+                if message.channel == wish_ch:
+                    userid = message.author.id
+                    pity = wish.pity_check(userid)
+                    fourstar_pity = str(pity[0])
+                    fivestar_pity = str(pity[1])
+                    if pity == 'NONE':
+                        await message.channel.send('{}, you have not been registered yet. Use .daily to gain primos to '
+                                                   'wish and earn units!'.format(message.author.mention))
+                    else:
+                        await message.channel.send(f'{message.author.mention}, you are currently at {fourstar_pity}/10 '
+                                                   f'for your next four star guarantee, and {fivestar_pity}/90 for your '
+                                                   f'next five star guarantee.')
+                else:
+                    await message.channel.send('Please use .primos in <#787520738118598656> only!')
+            if message.content == '.catalog':
+                userid = message.author.id
+                catalog = wish.catalog_parse(userid)
+                emoji_pull = catalog[0]
+                name_pull = catalog[1]
+                wishes = str(wish.wishes_check(userid))
+                if catalog == 'NONE' or wishes == 'NONE':
+                    await message.channel.send('{}, you have not been registered yet. Use .daily to gain primos to '
+                                               'wish and earn units!'.format(message.author.mention))
+                elif catalog[0] == []:
+                    await message.channel.send('{}, you currently have no units.'.format(message.author.mention))
+                else:
+                    catalog_embed = discord.Embed(
+                        description=f"{message.author.mention}'s units earned over {wishes} total wishes",
+                        colour=discord.Colour.green()
+                    )
+                    for i in range(len(name_pull)):
+                        catalog_embed.insert_field_at(i, name=chr(173), value=f'{emoji_pull[i]} {name_pull[i]}')
+                    catalog_embed.set_footer(text='Catalog')
+                    await message.channel.send(embed=catalog_embed)
 
     # role add and remove based on reaction, you need to add the message ID with the others. may be able to improve
     # this process to look cleaner on this end but it works
@@ -496,17 +678,23 @@ class MyClient(discord.Client):
     async def on_connect(self):
         print('Connected')
         # updates online presence
-        await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name=
-        'a ballad'))
-
+        await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='a ballad'))
 
     # sends welcome_message embed in welcome text channel whenever someone joins and also gives them Guest role so
     # no one in the server will be role-less
     async def on_member_join(self, member):
         ch = self.get_channel(749438385042751552)
-        await self.welcome_message(ch, member)
+        general = self.get_channel(749485433309757451)
+        await ch.send(embed=embeds.welcome_message(ch, member))
         guest_role = discord.utils.get(member.guild.roles, name="Guest")
         await member.add_roles(guest_role)
+        general_welcome = 'hi everyone, please welcome {}!! feel free to grab roles from <#749485522447237211> for ' \
+                          'genshin ' \
+                          'stuff ' \
+                          'or hang ' \
+                          'out as ' \
+                          'guest. whatever floats your boat <a:chika:773705341660692521>'.format(member.mention)
+        await general.send(general_welcome)
         return
 
 
