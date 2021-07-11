@@ -23,14 +23,12 @@ class Embeds:
     # embed inside #self-roles for choosing game role, either Travelers for Genshin or Sins for 7DS: Grand Cross
     def roles_game(self):
         roles_game = discord.Embed(
-            description="React to gain the below selections!",
+            description="React to gain access to Blue Protocol chat channels!",
             colour=discord.Colour.red()
         )
         roles_game.set_footer(text="Game Roles")
-        roles_game.add_field(name='Genshin Impact',
-                             value='React with <:Travelers:773690222118174750> for Genshin Impact', inline=True)
-        roles_game.add_field(name='7DS: Grand Cross', value='React with <:Sins:773689968719036496> for Grand Cross',
-                             inline=True)
+        roles_game.add_field(name='Blue Protocol',
+                             value='React with <:blueprotocol:809677319937196064> for Blue Protocol role', inline=True)
         return roles_game
 
     # embed inside #self-roles for choosing genshin server
@@ -77,41 +75,44 @@ class Embeds:
     # co-op with for relevant rewards or just to help out
     def world_level(self):
         world_level = discord.Embed(
-            description="React to assign your current world level, can be changed at any time!"
+            description="React to assign your current world level, can be changed at any time!",
+            colour=discord.Colour.red()
         )
         world_level.set_footer(text="World Level Assign")
-        world_level.add_field(name=chr(173), value='React with <:WL0:773789639127465986> for World Level 0',
+        world_level.add_field(name=chr(173), value='React with <:WL0:773789639127465986> for World Level 0 (AR 1-19)',
                               inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 1-19', inline=True)
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL1:773789389742276620> for World Level 1',
+        world_level.add_field(name=chr(173), value=chr(173), inline=True)
+        world_level.add_field(name=chr(173), value='React with <:WL1:773789389742276620> for World Level 1 (AR 20-24)',
                               inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 20-24', inline=True)
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL2:773789389594558477> for World Level 2',
+        world_level.add_field(name=chr(173), value=chr(173), inline=True)
+        world_level.add_field(name=chr(173), value='React with <:WL2:773789389594558477> for World Level 2 (AR 25-29)',
                               inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 25-29', inline=True)
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL3:773789389968375808> for World Level 3',
+        world_level.add_field(name=chr(173), value=chr(173), inline=True)
+        world_level.add_field(name=chr(173), value='React with <:WL3:773789389968375808> for World Level 3 (AR 30-34)',
                               inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 30-34', inline=True)
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL4:773789389934428190> for World Level 4',
+        world_level.add_field(name=chr(173), value=chr(173), inline=True)
+        world_level.add_field(name=chr(173), value='React with <:WL4:773789389934428190> for World Level 4 (AR 35-39)',
                               inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 35-39', inline=True)
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL5:773789390001668106> for World Level 5',
+        world_level.add_field(name=chr(173), value=chr(173), inline=True)
+        world_level.add_field(name=chr(173), value='React with <:WL5:773789390001668106> for World Level 5 (AR 40-44)',
                               inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 40-44', inline=True)
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL6:773789390010449941> for World Level 6',
+        world_level.add_field(name=chr(173), value=chr(173), inline=True)
+        world_level.add_field(name=chr(173), value='React with <:WL6:773789390010449941> for World Level 6 (AR 45-49)',
                               inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 45-49', inline=True)
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
-        world_level.add_field(name=chr(173), value='React with <:WL7:773789562329497601> for World Level 7',
+        world_level.add_field(name=chr(173), value=chr(173), inline=True)
+        world_level.add_field(name=chr(173), value='React with <:WL7:773789562329497601> for World Level 7 (AR 50-54)',
                               inline=True)
-        world_level.add_field(name=chr(173), value='AR Ranks 50+', inline=True)
         world_level.add_field(name=chr(173), value=chr(173), inline=True)
+        world_level.add_field(name=chr(173), value=chr(173), inline=True)
+        world_level.add_field(name=chr(173), value='React with <:WL8:807465009432625174> for World Level 8 (AR 55+)',
+                              inline=True)
         return world_level
 
     # .help embed
@@ -143,10 +144,25 @@ class Embeds:
                              inline=False)
         help_embed.add_field(name='Catalog', value='Type .catalog in any channel to post your current catalog of '
                                                    'units you have pulled in <#787520738118598656>')
-        help_embed.add_field(name='MODS ONLY: Mute/Unmute', value="Type .mute or .unmute followed by a mention to "
-                                                                  "either mute or unmute "
-                                                                  "a user respectively", inline=False)
         help_embed.add_field(name=chr(173), value='Will update this embed as more commands are added, feel free to '
                                                   'suggest '
                                                   'anything you think of in <#749485642517446717>!', inline=False)
         return help_embed
+
+    # Manga Updates role embed
+    def manga_embed(self):
+        manga_embed = discord.Embed(
+            description='React to get manga chapter updates!',
+            colour=discord.Colour.red()
+        )
+        manga_embed.set_footer(text='Manga Updates')
+        manga_embed.add_field(name=chr(173), value='React with 📚 to access \n<#778448461162086440>')
+        manga_embed.add_field(name='Currently Monitoring:', value='• Attack on Titan\n'
+                                                                  '• Chainsaw Man\n'
+                                                                  '• Solo Leveling\n'
+                                                                  '• Jujutsu Kaisen\n'
+                                                                  '• Berserk\n'
+                                                                  '• Black Clover\n'
+                                                                  '• Tower of God\n'
+                                                                  '• One Piece')
+        return manga_embed
