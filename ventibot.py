@@ -7,8 +7,7 @@ from wish import Wish
 from embeds import Embeds
 from mangascrape import Scrape
 from ch_guides import Guides
-from ch_guides import clientkey
-from discord import Streaming
+
 
 wish = Wish()
 embeds = Embeds()
@@ -18,33 +17,6 @@ guides = Guides()
 
 class MyClient(discord.Client):
     embedDic = {}
-
-    async def on_member_update(self, before, after):
-
-        # grabs announcements channel
-        ch = self.get_channel(749485617276125286)
-        # grabs user
-        kanda = self.get_user(629377169663066153)
-        twitch_url = 'https://www.twitch.tv/ohkanda'
-        subject = before
-
-        if subject == kanda:
-            # if update is streaming
-            if isinstance(after.activity, Streaming):
-                # sends message to announcements channel with stream link
-                await ch.send(f"{before.mention} is streaming on {after.activity.platform}: {after.activity.name}.\n"
-                              f"Join here: {after.activity.name}")
-                # changes presence to watching stream
-                await self.change_presence(activity=discord.Streaming(name="Kanda's Twitch stream", url=twitch_url))
-            # if update changes and was previously streaming
-            elif isinstance(before.activity, Streaming):
-                # changes presence back to original
-                await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='a '
-                                                                                                               'ballad'))
-                async for message in ch.history(limit=100):
-                    if "streaming" in message.content and message.author == self.user:
-                        # deletes message made in announcement channel to reduce clutter
-                        await message.delete_message()
 
     async def manga_check(self):
         await self.wait_until_ready()
@@ -71,40 +43,76 @@ class MyClient(discord.Client):
                 sl_embed.set_thumbnail(url='https://cover.nep.li/cover/Solo-Leveling.jpg')
                 await ch.send(embed=sl_embed)
 
-            # csm update
-            with open("csmchapter.txt", "r+") as txt:
-                csm_chapter = txt.read()
-            # checks to see if chapter from scrape is different to saved
-            csm_string = scrape.csm_chapter_check()
-            if csm_chapter != csm_string:
-                # chapter is different so rewrites file and constructs update message with link to new chapter
-                with open("csmchapter.txt", "w+") as txt:
-                    txt.write(csm_string)
-                csm_link = scrape.csm_link()
-                csm_embed = discord.Embed(
-                    description='New Chainsaw Man chapter!',
-                    colour=discord.Colour.red()
-                )
-                csm_embed.add_field(name="{}".format(csm_string), value='[View Here]({})'.format(csm_link))
-                csm_embed.set_thumbnail(url='https://cover.nep.li/cover/Chainsaw-Man.jpg')
-                await ch.send(embed=csm_embed)
+            # # csm update
+            # with open("csmchapter.txt", "r+") as txt:
+            #     csm_chapter = txt.read()
+            # # checks to see if chapter from scrape is different to saved
+            # csm_string = scrape.csm_chapter_check()
+            # if csm_chapter != csm_string:
+            #     # chapter is different so rewrites file and constructs update message with link to new chapter
+            #     with open("csmchapter.txt", "w+") as txt:
+            #         txt.write(csm_string)
+            #     csm_link = scrape.csm_link()
+            #     csm_embed = discord.Embed(
+            #         description='New Chainsaw Man chapter!',
+            #         colour=discord.Colour.red()
+            #     )
+            #     csm_embed.add_field(name="{}".format(csm_string), value='[View Here]({})'.format(csm_link))
+            #     csm_embed.set_thumbnail(url='https://cover.nep.li/cover/Chainsaw-Man.jpg')
+            #     await ch.send(embed=csm_embed)
 
-            with open("snkchapter.txt", "r+") as txt:
-                snk_chapter = txt.read()
+            # with open("snkchapter.txt", "r+") as txt:
+            #     snk_chapter = txt.read()
+            # # checks to see if chapter from scrape is different to saved
+            # snk_string = scrape.snk_chapter_check()
+            # if snk_chapter != snk_string:
+            #     # chapter is different so rewrites file and constructs update message with link to new chapter
+            #     with open("snkchapter.txt", "w+") as txt:
+            #         txt.write(snk_string)
+            #     snk_link = scrape.snk_link()
+            #     snk_embed = discord.Embed(
+            #         description='New Attack on Titan chapter!',
+            #         colour=discord.Colour.red()
+            #     )
+            #     snk_embed.add_field(name="{}".format(snk_string), value='[View Here]({})'.format(snk_link))
+            #     snk_embed.set_thumbnail(url='https://cover.nep.li/cover/Shingeki-No-Kyojin.jpg')
+            #     await ch.send(embed=snk_embed)
+
+            # dandadan update
+            with open("dddchapter.txt", "r+") as txt:
+                ddd_chapter = txt.read()
             # checks to see if chapter from scrape is different to saved
-            snk_string = scrape.snk_chapter_check()
-            if snk_chapter != snk_string:
+            ddd_string = scrape.ddd_chapter_check()
+            if ddd_chapter != ddd_string:
                 # chapter is different so rewrites file and constructs update message with link to new chapter
-                with open("snkchapter.txt", "w+") as txt:
-                    txt.write(snk_string)
-                snk_link = scrape.snk_link()
-                snk_embed = discord.Embed(
-                    description='New Attack on Titan chapter!',
+                with open("dddchapter.txt", "w+") as txt:
+                    txt.write(ddd_string)
+                ddd_link = scrape.ddd_link()
+                ddd_embed = discord.Embed(
+                    description='New DANDADAN chapter!',
                     colour=discord.Colour.red()
                 )
-                snk_embed.add_field(name="{}".format(snk_string), value='[View Here]({})'.format(snk_link))
-                snk_embed.set_thumbnail(url='https://cover.nep.li/cover/Shingeki-No-Kyojin.jpg')
-                await ch.send(embed=snk_embed)
+                ddd_embed.add_field(name="{}".format(ddd_string), value='[View Here]({})'.format(ddd_link))
+                ddd_embed.set_thumbnail(url='https://cover.nep.li/cover/Dandadan.jpg')
+                await ch.send(embed=ddd_embed)
+
+            # kengan omega update
+            with open("kenganchapter.txt", "r+") as txt:
+                kengan_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            kengan_string = scrape.kengan_chapter_check()
+            if kengan_chapter != kengan_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("kenganchapter.txt", "w+") as txt:
+                    txt.write(kengan_string)
+                kengan_link = scrape.kengan_link()
+                kengan_embed = discord.Embed(
+                    description='New Kengan Omega chapter!',
+                    colour=discord.Colour.red()
+                )
+                kengan_embed.add_field(name="{}".format(kengan_string), value='[View Here]({})'.format(kengan_link))
+                kengan_embed.set_thumbnail(url='https://cover.nep.li/cover/Kengan-Omega.jpg')
+                await ch.send(embed=kengan_embed)
 
             # jjk update
             with open("jjkchapter.txt", "r+") as txt:
@@ -178,9 +186,99 @@ class MyClient(discord.Client):
                 tog_embed.set_thumbnail(url='https://cover.nep.li/cover/Tower-Of-God.jpg')
                 await ch.send(embed=tog_embed)
 
+            # One Piece update
+            with open("opchapter.txt", "r+") as txt:
+                op_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            op_string = scrape.op_chapter_check()
+            if op_chapter != op_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("opchapter.txt", "w+") as txt:
+                    txt.write(op_string)
+                op_link = scrape.op_link()
+                op_embed = discord.Embed(
+                    description='New One Piece chapter!',
+                    colour=discord.Colour.red()
+                )
+                op_embed.add_field(name="{}".format(op_string), value='[View Here]({})'.format(op_link))
+                op_embed.set_thumbnail(url='https://cover.nep.li/cover/One-Piece.jpg')
+                await ch.send(embed=op_embed)
+
+            # Boxer update
+            with open("boxerchapter.txt", "r+") as txt:
+                boxer_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            boxer_string = scrape.boxer_chapter_check()
+            if boxer_chapter != boxer_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("boxerchapter.txt", "w+") as txt:
+                    txt.write(boxer_string)
+                boxer_link = scrape.boxer_link()
+                boxer_embed = discord.Embed(
+                    description='New The Boxer chapter!',
+                    colour=discord.Colour.red()
+                )
+                boxer_embed.add_field(name="{}".format(boxer_string), value='[View Here]({})'.format(boxer_link))
+                boxer_embed.set_thumbnail(url='https://cover.nep.li/cover/The-Boxer.jpg')
+                await ch.send(embed=boxer_embed)
+
+            # Blue Lock update
+            with open("blchapter.txt", "r+") as txt:
+                bl_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            bl_string = scrape.bl_chapter_check()
+            if bl_chapter != bl_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("blchapter.txt", "w+") as txt:
+                    txt.write(bl_string)
+                bl_link = scrape.bl_link()
+                bl_embed = discord.Embed(
+                    description='New Blue Lock chapter!',
+                    colour=discord.Colour.red()
+                )
+                bl_embed.add_field(name="{}".format(bl_string), value='[View Here]({})'.format(bl_link))
+                bl_embed.set_thumbnail(url='https://cover.nep.li/cover/Blue-Lock.jpg')
+                await ch.send(embed=bl_embed)
+
+            # BATE update
+            with open("BATEchapter.txt", "r+") as txt:
+                BATE_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            BATE_string = scrape.BATE_chapter_check()
+            if BATE_chapter != BATE_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("BATEchapter.txt", "w+") as txt:
+                    txt.write(BATE_string)
+                BATE_link = scrape.BATE_link()
+                BATE_embed = discord.Embed(
+                    description='New The Beginning After The End chapter!',
+                    colour=discord.Colour.red()
+                )
+                BATE_embed.add_field(name="{}".format(BATE_string), value='[View Here]({})'.format(BATE_link))
+                BATE_embed.set_thumbnail(url='https://cover.nep.li/cover/The-Beginning-After-The-End.jpg')
+                await ch.send(embed=BATE_embed)
+
+            # OPM update
+            with open("OPMchapter.txt", "r+") as txt:
+                OPM_chapter = txt.read()
+            # checks to see if chapter from scrape is different to saved
+            OPM_string = scrape.OPM_chapter_check()
+            if OPM_chapter != OPM_string:
+                # chapter is different so rewrites file and constructs update message with link to new chapter
+                with open("OPMchapter.txt", "w+") as txt:
+                    txt.write(OPM_string)
+                OPM_link = scrape.OPM_link()
+                OPM_embed = discord.Embed(
+                    description='New One Punch Man chapter!',
+                    colour=discord.Colour.red()
+                )
+                OPM_embed.add_field(name="{}".format(OPM_string), value='[View Here]({})'.format(OPM_link))
+                OPM_embed.set_thumbnail(url='https://cover.nep.li/cover/Onepunch-Man.jpg')
+                await ch.send(embed=OPM_embed)
+
             print('Manga update finished!')
             # sleeps for 15 minutes then loops through again to try and catch new updates when they release
-            await asyncio.sleep(600)
+            await asyncio.sleep(1800)
 
     # function for creating list of all users with specific role, used this for giveaways inside the server
     def get_list(self, message):
@@ -228,6 +326,18 @@ class MyClient(discord.Client):
                     await message.channel.send(embed=pfpembed)
             if message.content == '.help':
                 await message.channel.send(embed=embeds.help_embed())
+            if message.content == '.game':
+                await message.channel.send(embed=embeds.roles_game())
+            # if message.content == '.manga_embed':
+            #     await message.channel.send(embed=embeds.manga_embed())
+            # if message.content == '.role_embed':
+            #     await message.channel.send(embed=embeds.role_info())
+            # if message.content == '.srvselect_embed':
+            #     await message.channel.send(embed=embeds.server_select())
+            # if message.content == '.world_embed':
+            #     await message.channel.send(embed=embeds.world_level())
+            # if message.content == '.info_embed':
+            #     await message.channel.send(embed=embeds.role_info())
             if message.content.startswith('.mute'):
                 guild = self.get_guild(749438385042751549)
                 mods = discord.utils.get(guild.roles, name="Fatui Harbingers")
@@ -238,6 +348,9 @@ class MyClient(discord.Client):
                         user_uname = message.mentions[0]
                         muted = discord.utils.get(guild.roles, name='Muted')
                         if user_uname is not None:
+                            if str(user_uname) == "Yato#2558":
+                                await message.channel.send('Stop abusing my boy Yato')
+                                return
                             if muted in user_uname.roles:
                                 await message.channel.send('User is already muted.')
                                 return
@@ -250,6 +363,8 @@ class MyClient(discord.Client):
                         user_uname = message.mentions[0]
                         muted = discord.utils.get(guild.roles, name='Muted')
                         if user_uname is not None:
+                            if user_uname == "Yato#2558":
+                                await message.channel.send('Stop abusing my boy Yato')
                             if muted in user_uname.roles:
                                 await message.channel.send('User is already muted.')
                                 return
@@ -300,55 +415,101 @@ class MyClient(discord.Client):
                     return
             if message.content == '.wish':
                 wish_ch = self.get_channel(784964222899453972)
-                if message.channel == wish_ch:
-                    multipull = wish.wishmulti_nonpity()
-                    if "5" in multipull[2]:
-                        rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
-                        embed_colour = discord.Colour.gold()
-                    else:
-                        rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
-                        embed_colour = discord.Colour.purple()
-                    emoji_pull = multipull[0]
-                    name_pull = multipull[1]
-                    first_pull = f"{emoji_pull[0]} {name_pull[0]}"
-                    second_pull = f"{emoji_pull[1]} {name_pull[1]}"
-                    third_pull = f"{emoji_pull[2]} {name_pull[2]}"
-                    fourth_pull = f"{emoji_pull[3]} {name_pull[3]}"
-                    fifth_pull = f"{emoji_pull[4]} {name_pull[4]}"
-                    sixth_pull = f"{emoji_pull[5]} {name_pull[5]}"
-                    seventh_pull = f"{emoji_pull[6]} {name_pull[6]}"
-                    eighth_pull = f"{emoji_pull[7]} {name_pull[7]}"
-                    ninth_pull = f"{emoji_pull[8]} {name_pull[8]}"
-                    tenth_pull = f"{emoji_pull[9]} {name_pull[9]}"
-
-                    wishing_embed = discord.Embed(
-                        description='{}, ten stars fall from the sky..'.format(message.author.mention),
-                        colour=discord.Colour(0x82d9f9)
-                    )
-                    wishing_embed.set_image(url=rarity_gif)
-                    wishing_embed.set_footer(text='Wishes')
-                    await message.channel.send(embed=wishing_embed)
-
-                    time.sleep(4)
-
-                    wish_embed = discord.Embed(
-                        description='{}, below are your pulls!'.format(message.author.mention),
-                        colour=embed_colour
-                    )
-                    wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
-                    wish_embed.add_field(name=chr(173), value=second_pull, inline=False)
-                    wish_embed.add_field(name=chr(173), value=third_pull, inline=False)
-                    wish_embed.add_field(name=chr(173), value=fourth_pull, inline=False)
-                    wish_embed.add_field(name=chr(173), value=fifth_pull, inline=False)
-                    wish_embed.add_field(name=chr(173), value=sixth_pull, inline=False)
-                    wish_embed.add_field(name=chr(173), value=seventh_pull, inline=False)
-                    wish_embed.add_field(name=chr(173), value=eighth_pull, inline=False)
-                    wish_embed.add_field(name=chr(173), value=ninth_pull, inline=False)
-                    wish_embed.add_field(name=chr(173), value=tenth_pull, inline=False)
-                    wish_embed.set_footer(text='Wishes')
-                    await message.channel.send(embed=wish_embed)
+                multipull = wish.wishmulti_nonpity()
+                if "5" in multipull[2]:
+                    rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
+                    embed_colour = discord.Colour.gold()
                 else:
-                    await message.channel.send('Please use wish commands in <#784964222899453972> only!')
+                    rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
+                    embed_colour = discord.Colour.purple()
+                emoji_pull = multipull[0]
+                name_pull = multipull[1]
+                first_pull = f"{emoji_pull[0]} {name_pull[0]}"
+                second_pull = f"{emoji_pull[1]} {name_pull[1]}"
+                third_pull = f"{emoji_pull[2]} {name_pull[2]}"
+                fourth_pull = f"{emoji_pull[3]} {name_pull[3]}"
+                fifth_pull = f"{emoji_pull[4]} {name_pull[4]}"
+                sixth_pull = f"{emoji_pull[5]} {name_pull[5]}"
+                seventh_pull = f"{emoji_pull[6]} {name_pull[6]}"
+                eighth_pull = f"{emoji_pull[7]} {name_pull[7]}"
+                ninth_pull = f"{emoji_pull[8]} {name_pull[8]}"
+                tenth_pull = f"{emoji_pull[9]} {name_pull[9]}"
+
+                wishing_embed = discord.Embed(
+                    description='{}, ten stars fall from the sky..'.format(message.author.mention),
+                    colour=discord.Colour(0x82d9f9)
+                )
+                wishing_embed.set_image(url=rarity_gif)
+                wishing_embed.set_footer(text='Wishes')
+                await message.channel.send(embed=wishing_embed)
+
+                time.sleep(4)
+
+                wish_embed = discord.Embed(
+                    description='{}, below are your pulls!'.format(message.author.mention),
+                    colour=embed_colour
+                )
+                wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
+                wish_embed.add_field(name=chr(173), value=second_pull, inline=False)
+                wish_embed.add_field(name=chr(173), value=third_pull, inline=False)
+                wish_embed.add_field(name=chr(173), value=fourth_pull, inline=False)
+                wish_embed.add_field(name=chr(173), value=fifth_pull, inline=False)
+                wish_embed.add_field(name=chr(173), value=sixth_pull, inline=False)
+                wish_embed.add_field(name=chr(173), value=seventh_pull, inline=False)
+                wish_embed.add_field(name=chr(173), value=eighth_pull, inline=False)
+                wish_embed.add_field(name=chr(173), value=ninth_pull, inline=False)
+                wish_embed.add_field(name=chr(173), value=tenth_pull, inline=False)
+                wish_embed.set_footer(text='Wishes')
+                await message.channel.send(embed=wish_embed)
+                # if message.channel == wish_ch:
+                #     multipull = wish.wishmulti_nonpity()
+                #     if "5" in multipull[2]:
+                #         rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
+                #         embed_colour = discord.Colour.gold()
+                #     else:
+                #         rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
+                #         embed_colour = discord.Colour.purple()
+                #     emoji_pull = multipull[0]
+                #     name_pull = multipull[1]
+                #     first_pull = f"{emoji_pull[0]} {name_pull[0]}"
+                #     second_pull = f"{emoji_pull[1]} {name_pull[1]}"
+                #     third_pull = f"{emoji_pull[2]} {name_pull[2]}"
+                #     fourth_pull = f"{emoji_pull[3]} {name_pull[3]}"
+                #     fifth_pull = f"{emoji_pull[4]} {name_pull[4]}"
+                #     sixth_pull = f"{emoji_pull[5]} {name_pull[5]}"
+                #     seventh_pull = f"{emoji_pull[6]} {name_pull[6]}"
+                #     eighth_pull = f"{emoji_pull[7]} {name_pull[7]}"
+                #     ninth_pull = f"{emoji_pull[8]} {name_pull[8]}"
+                #     tenth_pull = f"{emoji_pull[9]} {name_pull[9]}"
+                #
+                #     wishing_embed = discord.Embed(
+                #         description='{}, ten stars fall from the sky..'.format(message.author.mention),
+                #         colour=discord.Colour(0x82d9f9)
+                #     )
+                #     wishing_embed.set_image(url=rarity_gif)
+                #     wishing_embed.set_footer(text='Wishes')
+                #     await message.channel.send(embed=wishing_embed)
+                #
+                #     time.sleep(4)
+                #
+                #     wish_embed = discord.Embed(
+                #         description='{}, below are your pulls!'.format(message.author.mention),
+                #         colour=embed_colour
+                #     )
+                #     wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
+                #     wish_embed.add_field(name=chr(173), value=second_pull, inline=False)
+                #     wish_embed.add_field(name=chr(173), value=third_pull, inline=False)
+                #     wish_embed.add_field(name=chr(173), value=fourth_pull, inline=False)
+                #     wish_embed.add_field(name=chr(173), value=fifth_pull, inline=False)
+                #     wish_embed.add_field(name=chr(173), value=sixth_pull, inline=False)
+                #     wish_embed.add_field(name=chr(173), value=seventh_pull, inline=False)
+                #     wish_embed.add_field(name=chr(173), value=eighth_pull, inline=False)
+                #     wish_embed.add_field(name=chr(173), value=ninth_pull, inline=False)
+                #     wish_embed.add_field(name=chr(173), value=tenth_pull, inline=False)
+                #     wish_embed.set_footer(text='Wishes')
+                #     await message.channel.send(embed=wish_embed)
+                # else:
+                #     await message.channel.send('Please use wish commands in <#784964222899453972> only!')
 
             if message.content == '.wish multi':
                 wish_ch = self.get_channel(787520738118598656)
@@ -427,7 +588,6 @@ class MyClient(discord.Client):
                     else:
                         await message.channel.send('Please use .wish multi in <#787520738118598656> only!')
 
-
             if message.content == '.wish single':
                 wish_ch = self.get_channel(787520738118598656)
                 if message.channel == wish_ch:
@@ -447,8 +607,8 @@ class MyClient(discord.Client):
                             contents = pd.read_csv('server_wishes.csv', dtype=str)
                             contents.at[index, 'primos'] = sub_primos
                             contents.to_csv('server_wishes.csv', index=False)
-                            pull = wish.wishsingle_pity(userid, index)
-                            emoji_pull = pull[0]
+                            pull = wish.wishsingle_pity(userid)
+                            emoji_pull = pull[0] 
                             name_pull = pull[1]
                             wish.dupes(userid, index, name_pull)
                             if "5" in pull[2]:
@@ -569,25 +729,87 @@ class MyClient(discord.Client):
     # this process to look cleaner on this end but it works
     async def on_raw_reaction_add(self, payload):
         message_id = payload.message_id
-        # if message_id = roles_game embed in #self-roles
-        if message_id == 773749867121868800:
+        if message_id == 809645998174634014:
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
 
             member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
-            role = discord.utils.get(guild.roles, name=payload.emoji.name)
             guest_role = discord.utils.get(member.guild.roles, name="Guest")
 
-            if role is not None:
-
-                if payload.user_id == self.user:
+            if payload.user_id == self.user:
+                return
+            elif member is not None:
+                if payload.emoji.name == "✅":
+                    await member.add_roles(guest_role)
+                    general = self.get_channel(749485433309757451)
+                    general_welcome = 'hi everyone, please welcome {}!! feel free to grab roles from <#749485522447237211> or hang out as guest. ' \
+                                      'whatever floats your boat <a:chika:773705341660692521>'.format(member.mention)
+                    await general.send(general_welcome)
                     return
-                elif member is not None:
-                    await member.add_roles(role)
-                    if guest_role in member.roles:
-                        await member.remove_roles(guest_role)
+
+        # if message_id = roles_game embed in #self-roles
+        if message_id == 807492809547317258:
+            guild_id = payload.guild_id
+            guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+
+            member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+            guest_role = discord.utils.get(member.guild.roles, name="Guest")
+
+            if payload.user_id == self.user:
+                return
+            elif member is not None:
+                if payload.emoji.name == "genshinimpact":
+                    genshin_role = discord.utils.get(guild.roles, name="Travelers")
+                    await member.add_roles(genshin_role)
+                if guest_role in member.roles:
+                    await member.remove_roles(guest_role)
+        if message_id == 809678757643419668:
+            guild_id = payload.guild_id
+            guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+
+            member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+            guest_role = discord.utils.get(member.guild.roles, name="Guest")
+
+            if payload.user_id == self.user:
+                return
+            elif member is not None:
+                if payload.emoji.name == "Sins":
+                    gc_role = discord.utils.get(guild.roles, name="Sins")
+                    await member.add_roles(gc_role)
+                if guest_role in member.roles:
+                    await member.remove_roles(guest_role)
+        if message_id == 809679346889261066:
+            guild_id = payload.guild_id
+            guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+
+            member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+            guest_role = discord.utils.get(member.guild.roles, name="Guest")
+
+            if payload.user_id == self.user:
+                return
+            elif member is not None:
+                if payload.emoji.name == "duel":
+                    dl_role = discord.utils.get(guild.roles, name="Duel Links")
+                    await member.add_roles(dl_role)
+                if guest_role in member.roles:
+                    await member.remove_roles(guest_role)
+        if message_id == 809679855020146729:
+            guild_id = payload.guild_id
+            guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+
+            member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+            guest_role = discord.utils.get(member.guild.roles, name="Guest")
+
+            if payload.user_id == self.user:
+                return
+            elif member is not None:
+                if payload.emoji.name == "blueprotocol":
+                    bp_role = discord.utils.get(guild.roles, name="Protocol")
+                    await member.add_roles(bp_role)
+                if guest_role in member.roles:
+                    await member.remove_roles(guest_role)
         # if message_id = any of the other CURRENT embeds in #self-roles
-        if message_id == 773764928497778719 or 773765122983854091 or 773765378803367946 or 773800977148149781:
+        if message_id == 807493162527621140 or 807493735344373771 or 807493770898702346 or 807493802427809792:
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
             role = discord.utils.get(guild.roles, name=payload.emoji.name)
@@ -597,7 +819,7 @@ class MyClient(discord.Client):
                     return
                 elif member is not None:
                     await member.add_roles(role)
-        if message_id == 778694747966406666 or 778832000127074326:
+        if message_id == 807493162527621140 or 807493923164520489 or 809674296053596200:
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
             member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
@@ -619,26 +841,44 @@ class MyClient(discord.Client):
                 if payload.emoji.name == "📚":
                     mangafiends_role = discord.utils.get(guild.roles, name="manga fiends")
                     await member.add_roles(mangafiends_role)
+                if payload.emoji.name == "💹":
+                    stonks_role = discord.utils.get(guild.roles, name='Stonks')
+                    await member.add_roles(stonks_role)
 
     # the opposite of the reaction_remove command, I have it set up to give Guest role back if they were to not have
     # any active reactions to the roles_game embed but not to do so if they're removing react from any of the other
     # embeds
     async def on_raw_reaction_remove(self, payload):
         message_id = payload.message_id
-        # if message_id = the roles_game embed in #self-roles
-        if message_id == 773749867121868800:
-            guild_id = payload.guild_id
-            guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
-            member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
-            role = discord.utils.get(guild.roles, name=payload.emoji.name)
-            guest_role = discord.utils.get(member.guild.roles, name="Guest")
-            game_roles = discord.utils.get(member.guild.roles, name='Sins' or 'Travelers')
-            if role is not None:
-                await member.remove_roles(role)
+        guild_id = payload.guild_id
+        guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
+        member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
+        guest_role = discord.utils.get(member.guild.roles, name="Guest")
+        game_roles = discord.utils.get(member.guild.roles, name='Sins' or 'Travelers' or 'Protocol')
+        if message_id == 807492809547317258:
+            if payload.emoji.name == "genshinimpact":
+                genshin_role = discord.utils.get(guild.roles, name="Travelers")
+                await member.remove_roles(genshin_role)
                 if game_roles not in member.roles:
                     await member.add_roles(guest_role)
+        if message_id == 809678757643419668:
+            if payload.emoji.name == "Sins":
+                gc_role = discord.utils.get(guild.roles, name='Sins')
+                await member.remove_roles(gc_role)
+                if game_roles not in member.roles:
+                    await member.add_roles(guest_role)
+        if message_id == 809679855020146729:
+            if payload.emoji.name == "blueprotocol":
+                bp_role = discord.utils.get(guild.roles, name='Protocol')
+                await member.remove_roles(bp_role)
+                if game_roles not in member.roles:
+                    await member.add_roles(guest_role)
+        if message_id == 809679346889261066:
+            if payload.emoji.name == "duel":
+                duel_role = discord.utils.get(guild.roles, name='Duel Links')
+                await member.remove_roles(duel_role)
         # if message_id = any of the other CURRENT embeds in #self-roles
-        if message_id == 773764928497778719 or 773765122983854091 or 773765378803367946:
+        if message_id == 807493162527621140 or 807493735344373771 or 807493770898702346 or 807493802427809792:
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
 
@@ -648,7 +888,7 @@ class MyClient(discord.Client):
                 member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
                 if member is not None:
                     await member.remove_roles(role)
-        if message_id == 778694747966406666:
+        if message_id == 807493162527621140 or 807493923164520489 or 809674296053596200:
             guild_id = payload.guild_id
             guild = discord.utils.find(lambda g: g.id == guild_id, client.guilds)
             member = discord.utils.find(lambda m: m.id == payload.user_id, guild.members)
@@ -667,6 +907,12 @@ class MyClient(discord.Client):
                 if payload.emoji.name == "🇭🇰":
                     sar_role = discord.utils.get(guild.roles, name="SAR")
                     await member.remove_roles(sar_role)
+                if payload.emoji.name == "📚":
+                    mangafiends_role = discord.utils.get(guild.roles, name="manga fiends")
+                    await member.remove_roles(mangafiends_role)
+                if payload.emoji.name == "💹":
+                    stonks_role = discord.utils.get(guild.roles, name='Stonks')
+                    await member.remove_roles(stonks_role)
 
     # bot login confirmation #
     async def on_ready(self):
@@ -679,24 +925,6 @@ class MyClient(discord.Client):
         print('Connected')
         # updates online presence
         await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='a ballad'))
-
-    # sends welcome_message embed in welcome text channel whenever someone joins and also gives them Guest role so
-    # no one in the server will be role-less
-    async def on_member_join(self, member):
-        ch = self.get_channel(749438385042751552)
-        general = self.get_channel(749485433309757451)
-        await ch.send(embed=embeds.welcome_message(ch, member))
-        guest_role = discord.utils.get(member.guild.roles, name="Guest")
-        await member.add_roles(guest_role)
-        general_welcome = 'hi everyone, please welcome {}!! feel free to grab roles from <#749485522447237211> for ' \
-                          'genshin ' \
-                          'stuff ' \
-                          'or hang ' \
-                          'out as ' \
-                          'guest. whatever floats your boat <a:chika:773705341660692521>'.format(member.mention)
-        await general.send(general_welcome)
-        return
-
 
 client = MyClient()
 client.run('')
