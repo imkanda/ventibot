@@ -8,7 +8,6 @@ class Scrape:
         source = requests.get(jjkxml).text
         soup = BeautifulSoup(source, 'lxml')
         contents = soup.find_all('title')
-        print(contents)
         new_chp = contents[2].text
         return new_chp
 
@@ -17,7 +16,6 @@ class Scrape:
         source = requests.get(jjkxml).text
         soup = BeautifulSoup(source, features='xml')
         contents = soup.find_all('link')
-        print(contents)
         chp_link = contents[3].text
         return chp_link
 
@@ -26,7 +24,6 @@ class Scrape:
         source = requests.get(csmxml).text
         soup = BeautifulSoup(source, 'lxml')
         contents = soup.find_all('title')
-        print(contents)
         new_chp = contents[2].text
         return new_chp
 
@@ -35,7 +32,6 @@ class Scrape:
         source = requests.get(csmxml).text
         soup = BeautifulSoup(source, features='xml')
         contents = soup.find_all('link')
-        print(contents)
         chp_link = contents[3].text
         return chp_link
 
@@ -44,7 +40,6 @@ class Scrape:
         source = requests.get(snkxml).text
         soup = BeautifulSoup(source, 'lxml')
         contents = soup.find_all('title')
-        print(contents)
         new_chp = contents[2].text
         return new_chp
 
@@ -53,16 +48,15 @@ class Scrape:
         source = requests.get(snkxml).text
         soup = BeautifulSoup(source, features='xml')
         contents = soup.find_all('link')
-        print(contents)
         chp_link = contents[3].text
         return chp_link
 
     def sl_chapter_check(self):
         slxml = 'https://mangasee123.com/rss/Solo-Leveling.xml'
-        source = requests.get(slxml).text
+        header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36'}
+        source = requests.get(slxml, headers=header).text
         soup = BeautifulSoup(source, 'lxml')
         contents = soup.find_all('title')
-        print(contents)
         new_chp = contents[2].text
         return new_chp
 
@@ -71,7 +65,6 @@ class Scrape:
         source = requests.get(slxml).text
         soup = BeautifulSoup(source, features='xml')
         contents = soup.find_all('link')
-        print(contents)
         chp_link = contents[3].text
         return chp_link
 
@@ -80,7 +73,6 @@ class Scrape:
         source = requests.get(brsrkxml).text
         soup = BeautifulSoup(source, 'lxml')
         contents = soup.find_all('title')
-        print(contents)
         new_chp = contents[2].text
         return new_chp
 
@@ -89,7 +81,6 @@ class Scrape:
         source = requests.get(brsrkxml).text
         soup = BeautifulSoup(source, features='xml')
         contents = soup.find_all('link')
-        print(contents)
         chp_link = contents[3].text
         return chp_link
 
@@ -98,7 +89,6 @@ class Scrape:
         source = requests.get(bcxml).text
         soup = BeautifulSoup(source, 'lxml')
         contents = soup.find_all('title')
-        print(contents)
         new_chp = contents[2].text
         return new_chp
 
@@ -107,7 +97,6 @@ class Scrape:
         source = requests.get(bcxml).text
         soup = BeautifulSoup(source, features='xml')
         contents = soup.find_all('link')
-        print(contents)
         chp_link = contents[3].text
         return chp_link
 
@@ -116,7 +105,6 @@ class Scrape:
         source = requests.get(togxml).text
         soup = BeautifulSoup(source, 'lxml')
         contents = soup.find_all('title')
-        print(contents)
         new_chp = contents[2].text
         return new_chp
 
@@ -125,6 +113,117 @@ class Scrape:
         source = requests.get(togxml).text
         soup = BeautifulSoup(source, features='xml')
         contents = soup.find_all('link')
-        print(contents)
+        chp_link = contents[3].text
+        return chp_link
+
+    def op_chapter_check(self):
+        opxml = 'https://mangasee123.com/rss/One-Piece.xml'
+        source = requests.get(opxml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        new_chp = contents[2].text
+        return new_chp
+
+    def op_link(self):
+        opxml = 'https://mangasee123.com/rss/One-Piece.xml'
+        source = requests.get(opxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        chp_link = contents[3].text
+        return chp_link
+
+    def boxer_chapter_check(self):
+        boxerxml = 'https://mangasee123.com/rss/The-Boxer.xml'
+        source = requests.get(boxerxml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        new_chp = contents[2].text
+        return new_chp
+
+    def boxer_link(self):
+        boxerxml = 'https://mangasee123.com/rss/The-Boxer.xml'
+        source = requests.get(boxerxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        chp_link = contents[3].text
+        return chp_link
+
+    def bl_chapter_check(self):
+        blxml = 'https://mangasee123.com/rss/Blue-Lock.xml'
+        source = requests.get(blxml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        new_chp = contents[2].text
+        return new_chp
+
+    def bl_link(self):
+        blxml = 'https://mangasee123.com/rss/Blue-Lock.xml'
+        source = requests.get(blxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        chp_link = contents[3].text
+        return chp_link
+
+    def BATE_chapter_check(self):
+        BATExml = 'https://mangasee123.com/rss/The-Beginning-After-The-End.xml'
+        source = requests.get(BATExml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        new_chp = contents[2].text
+        return new_chp
+
+    def BATE_link(self):
+        BATExml = 'https://mangasee123.com/rss/The-Beginning-After-The-End.xml'
+        source = requests.get(BATExml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        chp_link = contents[3].text
+        return chp_link
+
+    def OPM_chapter_check(self):
+        OPMxml = 'https://mangasee123.com/rss/Onepunch-Man.xml'
+        source = requests.get(OPMxml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        new_chp = contents[2].text
+        return new_chp
+
+    def OPM_link(self):
+        OPMxml = 'https://mangasee123.com/rss/Onepunch-Man.xml'
+        source = requests.get(OPMxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        chp_link = contents[3].text
+        return chp_link
+
+    def ddd_chapter_check(self):
+        DDDxml = 'https://mangasee123.com/rss/Dandadan.xml'
+        source = requests.get(DDDxml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        new_chp = contents[2].text
+        return new_chp
+
+    def ddd_link(self):
+        DDDxml = 'https://mangasee123.com/rss/Dandadan.xml'
+        source = requests.get(DDDxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
+        chp_link = contents[3].text
+        return chp_link
+
+    def kengan_chapter_check(self):
+        Kenganxml = 'https://mangasee123.com/rss/Kengan-Omega.xml'
+        source = requests.get(Kenganxml).text
+        soup = BeautifulSoup(source, 'lxml')
+        contents = soup.find_all('title')
+        new_chp = contents[2].text
+        return new_chp
+
+    def kengan_link(self):
+        Kenganxml = 'https://mangasee123.com/rss/Kengan-Omega.xml'
+        source = requests.get(Kenganxml).text
+        soup = BeautifulSoup(source, features='xml')
+        contents = soup.find_all('link')
         chp_link = contents[3].text
         return chp_link
