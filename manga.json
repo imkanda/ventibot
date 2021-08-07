@@ -1,0 +1,78 @@
+{
+  "info": {
+    "default_desc": "New %title% chapter!"
+  },
+  "jjk": {
+    "title": "Jujutsu Kaisen",
+    "source": "https://mangasee123.com/rss/Jujutsu-Kaisen.xml",
+    "thumbnail": "https://cover.nep.li/cover/Jujutsu-Kaisen.jpg"
+  },
+  "csm": {
+    "title": "Chainsaw Man",
+    "source": "https://mangasee123.com/rss/Chainsaw-Man.xml",
+    "thumbnail": "https://cover.nep.li/cover/Chainsaw-Man.jpg",
+    "ignore": true
+  },
+  "snk": {
+    "title": "Attack on Titan",
+    "source": "https://mangasee123.com/rss/Shingeki-No-Kyojin.xml",
+    "thumbnail": "https://cover.nep.li/cover/Shingeki-No-Kyojin.jpg",
+    "ignore": true
+  },
+  "ddd": {
+    "title": "DANDADAN",
+    "source": "https://mangasee123.com/rss/Dandadan.xml",
+    "thumbnail": "https://cover.nep.li/cover/Dandadan.jpg"
+  },
+  "kengan": {
+    "title": "Kengan Omega",
+    "source": "https://mangasee123.com/rss/Kengan-Omega.xml",
+    "thumbnail": "https://cover.nep.li/cover/Kengan-Omega.jpg"
+  },
+  "opm": {
+    "title": "One Punch Man",
+    "source": "https://mangasee123.com/rss/Onepunch-Man.xml",
+    "thumbnail": "https://cover.nep.li/cover/Onepunch-Man.jpg"
+  },
+  "sl": {
+    "title": "Solo Leveling",
+    "source": "https://mangasee123.com/rss/Solo-Leveling.xml",
+    "thumbnail": "https://cover.nep.li/cover/Solo-Leveling.jpg"
+  },
+  "brsrk": {
+    "title": "Berserk",
+    "source": "https://mangasee123.com/rss/Berserk.xml",
+    "thumbnail": "https://cover.nep.li/cover/Berserk.jpg",
+    "desc": "New Berserk chapter..? <:kekwtf:773683896688050236>"
+  },
+  "bc": {
+    "title": "Black Clover",
+    "source": "https://mangasee123.com/rss/Black-Clover.xml",
+    "thumbnail": "https://cover.nep.li/cover/Black-Clover.jpg"
+  },
+  "tog": {
+    "title": "Tower of God",
+    "source": "https://mangasee123.com/rss/Tower-Of-God.xml",
+    "thumbnail": "https://cover.nep.li/cover/Tower-Of-God.jpg"
+  },
+  "op": {
+    "title": "One Piece",
+    "source": "https://mangasee123.com/rss/One-Piece.xml",
+    "thumbnail": "https://cover.nep.li/cover/One-Piece.jpg"
+  },
+  "boxer": {
+    "title": "The Boxer",
+    "source": "https://mangasee123.com/rss/The-Boxer.xml",
+    "thumbnail": "https://cover.nep.li/cover/The-Boxer.jpg"
+  },
+  "bl": {
+    "title": "Blue Lock",
+    "source": "https://mangasee123.com/rss/Blue-Lock.xml",
+    "thumbnail": "https://cover.nep.li/cover/Blue-Lock.jpg"
+  },
+  "BATE": {
+    "title": "The Beginning After The End",
+    "source": "https://mangasee123.com/rss/The-Beginning-After-The-End.xml",
+    "thumbnail": "https://cover.nep.li/cover/The-Beginning-After-The-End.jpg"
+  }
+}
