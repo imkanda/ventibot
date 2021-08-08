@@ -187,6 +187,9 @@ class MyClient(discord.Client):
                         await message.channel.send("Please enter a valid int!")
                 if wish_num:
                     highest_rarity, _wish = wish.wish(message.author.id, wish_num, simulation)
+                    if not highest_rarity:  # too broke to multi
+                        await message.channel.send(f'Sorry {message.author.mention}, you do not have enough primos for this wish amount')
+                        return
                     if highest_rarity == "5*":
                         rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
                         embed_colour = discord.Colour.gold()
@@ -211,103 +214,6 @@ class MyClient(discord.Client):
                         wish_embed.add_field(name=chr(173), value=f'{pulled[1]} {pulled[0][1:]}', inline=False)
                     wish_embed.set_footer(text='Wishes')
                     await message.channel.send(embed=wish_embed)
-            if message.content == '.wish':
-                wish_ch = self.get_channel(784964222899453972)
-                multipull = wish.wishmulti_nonpity()
-                if "5" in multipull[2]:
-                    rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
-                    embed_colour = discord.Colour.gold()
-                else:
-                    rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
-                    embed_colour = discord.Colour.purple()
-                emoji_pull = multipull[0]
-                name_pull = multipull[1]
-                first_pull = f"{emoji_pull[0]} {name_pull[0]}"
-                second_pull = f"{emoji_pull[1]} {name_pull[1]}"
-                third_pull = f"{emoji_pull[2]} {name_pull[2]}"
-                fourth_pull = f"{emoji_pull[3]} {name_pull[3]}"
-                fifth_pull = f"{emoji_pull[4]} {name_pull[4]}"
-                sixth_pull = f"{emoji_pull[5]} {name_pull[5]}"
-                seventh_pull = f"{emoji_pull[6]} {name_pull[6]}"
-                eighth_pull = f"{emoji_pull[7]} {name_pull[7]}"
-                ninth_pull = f"{emoji_pull[8]} {name_pull[8]}"
-                tenth_pull = f"{emoji_pull[9]} {name_pull[9]}"
-
-                wishing_embed = discord.Embed(
-                    description='{}, ten stars fall from the sky..'.format(message.author.mention),
-                    colour=discord.Colour(0x82d9f9)
-                )
-                wishing_embed.set_image(url=rarity_gif)
-                wishing_embed.set_footer(text='Wishes')
-                await message.channel.send(embed=wishing_embed)
-
-                time.sleep(4)
-
-                wish_embed = discord.Embed(
-                    description='{}, below are your pulls!'.format(message.author.mention),
-                    colour=embed_colour
-                )
-                wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
-                wish_embed.add_field(name=chr(173), value=second_pull, inline=False)
-                wish_embed.add_field(name=chr(173), value=third_pull, inline=False)
-                wish_embed.add_field(name=chr(173), value=fourth_pull, inline=False)
-                wish_embed.add_field(name=chr(173), value=fifth_pull, inline=False)
-                wish_embed.add_field(name=chr(173), value=sixth_pull, inline=False)
-                wish_embed.add_field(name=chr(173), value=seventh_pull, inline=False)
-                wish_embed.add_field(name=chr(173), value=eighth_pull, inline=False)
-                wish_embed.add_field(name=chr(173), value=ninth_pull, inline=False)
-                wish_embed.add_field(name=chr(173), value=tenth_pull, inline=False)
-                wish_embed.set_footer(text='Wishes')
-                await message.channel.send(embed=wish_embed)
-                # if message.channel == wish_ch:
-                #     multipull = wish.wishmulti_nonpity()
-                #     if "5" in multipull[2]:
-                #         rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
-                #         embed_colour = discord.Colour.gold()
-                #     else:
-                #         rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
-                #         embed_colour = discord.Colour.purple()
-                #     emoji_pull = multipull[0]
-                #     name_pull = multipull[1]
-                #     first_pull = f"{emoji_pull[0]} {name_pull[0]}"
-                #     second_pull = f"{emoji_pull[1]} {name_pull[1]}"
-                #     third_pull = f"{emoji_pull[2]} {name_pull[2]}"
-                #     fourth_pull = f"{emoji_pull[3]} {name_pull[3]}"
-                #     fifth_pull = f"{emoji_pull[4]} {name_pull[4]}"
-                #     sixth_pull = f"{emoji_pull[5]} {name_pull[5]}"
-                #     seventh_pull = f"{emoji_pull[6]} {name_pull[6]}"
-                #     eighth_pull = f"{emoji_pull[7]} {name_pull[7]}"
-                #     ninth_pull = f"{emoji_pull[8]} {name_pull[8]}"
-                #     tenth_pull = f"{emoji_pull[9]} {name_pull[9]}"
-                #
-                #     wishing_embed = discord.Embed(
-                #         description='{}, ten stars fall from the sky..'.format(message.author.mention),
-                #         colour=discord.Colour(0x82d9f9)
-                #     )
-                #     wishing_embed.set_image(url=rarity_gif)
-                #     wishing_embed.set_footer(text='Wishes')
-                #     await message.channel.send(embed=wishing_embed)
-                #
-                #     time.sleep(4)
-                #
-                #     wish_embed = discord.Embed(
-                #         description='{}, below are your pulls!'.format(message.author.mention),
-                #         colour=embed_colour
-                #     )
-                #     wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
-                #     wish_embed.add_field(name=chr(173), value=second_pull, inline=False)
-                #     wish_embed.add_field(name=chr(173), value=third_pull, inline=False)
-                #     wish_embed.add_field(name=chr(173), value=fourth_pull, inline=False)
-                #     wish_embed.add_field(name=chr(173), value=fifth_pull, inline=False)
-                #     wish_embed.add_field(name=chr(173), value=sixth_pull, inline=False)
-                #     wish_embed.add_field(name=chr(173), value=seventh_pull, inline=False)
-                #     wish_embed.add_field(name=chr(173), value=eighth_pull, inline=False)
-                #     wish_embed.add_field(name=chr(173), value=ninth_pull, inline=False)
-                #     wish_embed.add_field(name=chr(173), value=tenth_pull, inline=False)
-                #     wish_embed.set_footer(text='Wishes')
-                #     await message.channel.send(embed=wish_embed)
-                # else:
-                #     await message.channel.send('Please use wish commands in <#784964222899453972> only!')
             if message.content == '.wish multi':
                 wish_ch = self.get_channel(787520738118598656)
                 if message.channel == wish_ch:
@@ -464,8 +370,9 @@ class MyClient(discord.Client):
                         await message.channel.send('Please use .wish multi in <#787520738118598656> only!')
             if message.content == '.daily':
                 userid = message.author.id
-                cooldown = message.created_at
-                primos = wish.daily_primo(userid, cooldown)
+                # cooldown = message.created_at
+                # primos = wish.daily_primo(userid, cooldown)
+                primos = wish.daily_primo(userid)
                 if primos:
                     await message.channel.send(f'Dailies completed, nice job {message.author.mention}! You now have'
                                                f' {primos} primos.')
