@@ -86,26 +86,27 @@ class Wish:
         if item[0] == "w":  # item is a weapon, add it to inven
             units.append(item)
         elif item[0] == "c":  # item is a character, check if already owned+constellation level then add
-            clevel = self.get_character_constellation(userid, item[1:])
+            clevel = self.get_character_constellation(userid, item[1:], units)
             if clevel == -1:
-                units.append(item)
-            elif clevel in range(0, 5):
-                cindex = units.index(item)
-                del units[cindex]
-                units.append(f"{item} C{clevel+1}")
+                units.append(item[1:])
+            elif clevel in range(0, 6):
+                for i in range(len(units)):
+                    if units[i].startswith(item[1:]): # assumes no duplicates of same unit since only detects first one
+                        units[i] = f"{item[1:]} C{clevel + 1}"
+                        break
         self.save_units(userid, units)
 
-    def get_character_constellation(self, userid: int, character: str):
-        units = self.get_user_data(userid)["units"]
+    def get_character_constellation(self, userid: int, character: str, units: list):
         clevel_int = -1
         for unit in units:
-            if unit[1:] == character:
-                clevel_int = 0
-            elif unit[1:len(character)] == character:
+            if unit == character:
+                return 0
+            elif unit[0:len(character)] == character:
                 constellation_level = unit[-2:]
                 if constellation_level[0] == 'C':
                     try:
                         clevel_int = int(constellation_level[1])
+                        return clevel_int
                     except ValueError:
                         pass
         return clevel_int
