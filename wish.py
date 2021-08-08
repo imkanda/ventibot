@@ -298,55 +298,55 @@ class Wish:
                 return
 
     # parses user's unit catalog
-    # def catalog_parse(self, userid):
-    #     with open('server_wishes.csv', 'r', newline='') as server_wishes:
-    #         reader = csv.DictReader(server_wishes)
-    #         userids = []
-    #         catalog = []
-    #         userid = str(userid)
-    #         usercatalog_names = []
-    #         usercatalog_emotes = []
-    #         for row in reader:
-    #             userids.append(row['userid'])
-    #             pre_list = row['units']
-    #             post_list = ast.literal_eval(pre_list)
-    #             catalog.append(post_list)
-    #         # if userid exists in csv their units will be parsed into lists
-    #         if userid in userids:
-    #             index = userids.index(userid)
-    #             user_catalog = catalog[index]
-    #             # loops through units in catalog
-    #             for unit in user_catalog:
-    #                 # have to parse the dupes in the catalog differently to grab the right index and emotes
-    #                 if 'C' in unit:
-    #                     # splits the unit dupe name so it uses just the actual unit name
-    #                     nondupe_unit = unit.split(' ')
-    #                     corrected_unit = nondupe_unit[0]
-    #                     if corrected_unit in self.fourstars_units:
-    #                         # uses the index to grab the correct emote from the parallel arrays
-    #                         catalogindex = self.fourstars_units.index(corrected_unit)
-    #                         usercatalog_emotes.append(self.fourstar_emotes[catalogindex])
-    #                         usercatalog_names.append(unit)
-    #                     if corrected_unit in self.fivestars_units:
-    #                         # uses the index to grab the correct emote from the parallel arrays
-    #                         catalogindex = self.fivestars_units.index(corrected_unit)
-    #                         usercatalog_emotes.append(self.fivestar_emotes[catalogindex])
-    #                         usercatalog_names.append(unit)
-    #                 else:
-    #                     if unit in self.fourstars_units:
-    #                         # uses just the unit name since it's not a dupe
-    #                         catalogindex = self.fourstars_units.index(unit)
-    #                         usercatalog_emotes.append(self.fourstar_emotes[catalogindex])
-    #                         usercatalog_names.append(self.fourstars_units[catalogindex])
-    #                     if unit in self.fivestars_units:
-    #                         # uses just the unit name since it's not a dupe
-    #                         catalogindex = self.fivestars_units.index(unit)
-    #                         usercatalog_emotes.append(self.fivestar_emotes[catalogindex])
-    #                         usercatalog_names.append(self.fivestars_units[catalogindex])
-    #             return usercatalog_emotes, usercatalog_names
-    #         # returns NONE if userid is not in the csv
-    #         else:
-    #             return 'NONE'
+    def catalog_parse(self, userid):
+        # grab user data and check if user/units exist
+        userData = self.get_user_data(userid)
+        if userData == {}:
+            return 'NONE'
+
+        unitData = userData["units"]
+        if unitData == {}:
+            return {}
+
+        # User exists and has units
+        userCatalog_emotes = []
+        userCatalog_names = []
+        for unit in unitData:
+            if unit in self.pullables[self.rarity_pull[2]]:
+                break
+            elif unit in self.pullables[self.rarity_pull[1]]:
+                break
+            elif unit in self.pullables[self.rarity_pull[0]]:
+                break
+
+        # for unit in user_catalog:
+        #     # have to parse the dupes in the catalog differently to grab the right index and emotes
+        #     if 'C' in unit:
+        #         # splits the unit dupe name so it uses just the actual unit name
+        #         nondupe_unit = unit.split(' ')
+        #         corrected_unit = nondupe_unit[0]
+        #         if corrected_unit in self.fourstars_units:
+        #             # uses the index to grab the correct emote from the parallel arrays
+        #             catalogindex = self.fourstars_units.index(corrected_unit)
+        #             usercatalog_emotes.append(self.fourstar_emotes[catalogindex])
+        #             usercatalog_names.append(unit)
+        #         if corrected_unit in self.fivestars_units:
+        #             # uses the index to grab the correct emote from the parallel arrays
+        #             catalogindex = self.fivestars_units.index(corrected_unit)
+        #             usercatalog_emotes.append(self.fivestar_emotes[catalogindex])
+        #             usercatalog_names.append(unit)
+        #     else:
+        #         if unit in self.fourstars_units:
+        #             # uses just the unit name since it's not a dupe
+        #             catalogindex = self.fourstars_units.index(unit)
+        #             usercatalog_emotes.append(self.fourstar_emotes[catalogindex])
+        #             usercatalog_names.append(self.fourstars_units[catalogindex])
+        #         if unit in self.fivestars_units:
+        #             # uses just the unit name since it's not a dupe
+        #             catalogindex = self.fivestars_units.index(unit)
+        #             usercatalog_emotes.append(self.fivestar_emotes[catalogindex])
+        #             usercatalog_names.append(self.fivestars_units[catalogindex])
+        # return usercatalog_emotes, usercatalog_names
 
     # parses user's total wish count
     def wishes_check(self, userid):
