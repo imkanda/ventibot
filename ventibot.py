@@ -179,6 +179,9 @@ class MyClient(discord.Client):
                     wish_num = 10
                 elif message.content == '.wish single':
                     wish_num = 1
+                elif message.content == '.wish':
+                    simulation = True
+                    wish_num = 10
                 elif len(message.content) > 5:
                     try:
                         wish_num = int(message.content[5:])
