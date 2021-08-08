@@ -6,13 +6,10 @@ import pandas as pd
 from wish import Wish
 from embeds import Embeds
 from mangascrape import Scrape
-from ch_guides import Guides
-
 
 wish = Wish()
 embeds = Embeds()
 scrape = Scrape()
-guides = Guides()
 
 
 class MyClient(discord.Client):
@@ -25,7 +22,7 @@ class MyClient(discord.Client):
         while not self.is_closed():
             print('Updating manga..')
 
-            # get all updated manga from scraper then make and send embeds for them
+            # get all updated manga from scraper then makes and send embeds for them
             new_manga_list = scrape.new_ch_check()
             for new_manga in new_manga_list:
                 manga_embed = discord.Embed(
