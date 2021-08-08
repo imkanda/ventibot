@@ -5,7 +5,30 @@
     "wishes": 354,
     "primos": 3832,
     "cooldown": "2021-07-13 13:01:02.800000",
-    "units": "['Ningguang C1', 'Lisa C1', 'Razor', 'Tartaglia', 'Amber C1', 'Xingqiu C2', 'Diona C2', 'Venti', 'Barbara C1', 'Kaeya C1', 'Bennett C1', 'Xinyan', 'Qiqi', 'Xiangling', 'Sucrose', 'Beidou C1', 'Fischl C2', 'Noelle C4', 'Diluc', 'Chongyun C3', '9', '0']"
+    "units": [
+      "Ningguang C1",
+      "Lisa C1",
+      "Razor",
+      "Tartaglia",
+      "Amber C1",
+      "Xingqiu C2",
+      "Diona C2",
+      "Venti",
+      "Barbara C1",
+      "Kaeya C1",
+      "Bennett C1",
+      "Xinyan",
+      "Qiqi",
+      "Xiangling",
+      "Sucrose",
+      "Beidou C1",
+      "Fischl C2",
+      "Noelle C4",
+      "Diluc",
+      "Chongyun C3",
+      "9",
+      "0"
+    ]
   },
   "558099893734866946": {
     "four_pity": 9,
@@ -13,7 +36,21 @@
     "wishes": 130,
     "primos": 218,
     "cooldown": "2021-02-10 16:38:43.090000",
-    "units": "['Noelle C1', 'Amber', 'Bennett C1', 'Diluc', 'Ningguang', 'Xiangling', 'Xingqiu C1', 'Beidou C1', 'Diona', 'Chongyun', 'Lisa', '9', '0']"
+    "units": [
+      "Noelle C1",
+      "Amber",
+      "Bennett C1",
+      "Diluc",
+      "Ningguang",
+      "Xiangling",
+      "Xingqiu C1",
+      "Beidou C1",
+      "Diona",
+      "Chongyun",
+      "Lisa",
+      "9",
+      "0"
+    ]
   },
   "653598380831801354": {
     "four_pity": 4,
@@ -21,7 +58,34 @@
     "wishes": 527,
     "primos": 166,
     "cooldown": "2021-06-03 02:03:16.620000",
-    "units": "['Razor', 'Sucrose', 'Fischl', 'Zhongli', 'Ningguang C3', 'Noelle', 'Bennett C3', 'Sucrose C2', 'Klee C1', 'Fischl C3', 'Chongyun C1', 'Xingqiu', 'Venti C1', 'Sucrose C3', 'Razor C4', 'Beidou C2', 'Xiangling C3', 'Diona C1', 'Amber C2', 'Kaeya', 'Xinyan C5', 'Qiqi', 'Barbara C1', 'Lisa', '9', '0']"
+    "units": [
+      "Razor",
+      "Sucrose",
+      "Fischl",
+      "Zhongli",
+      "Ningguang C3",
+      "Noelle",
+      "Bennett C3",
+      "Sucrose C2",
+      "Klee C1",
+      "Fischl C3",
+      "Chongyun C1",
+      "Xingqiu",
+      "Venti C1",
+      "Sucrose C3",
+      "Razor C4",
+      "Beidou C2",
+      "Xiangling C3",
+      "Diona C1",
+      "Amber C2",
+      "Kaeya",
+      "Xinyan C5",
+      "Qiqi",
+      "Barbara C1",
+      "Lisa",
+      "9",
+      "0"
+    ]
   },
   "473695681975156757": {
     "four_pity": 1,
@@ -29,7 +93,41 @@
     "wishes": 649,
     "primos": 230,
     "cooldown": "2021-07-13 04:17:05.562000",
-    "units": "['Beidou C1', 'Qiqi C1', 'Xingqiu C1', 'Sucrose C1', 'Bennett C1', 'Lisa C1', 'Barbara', 'Diona', 'Tartaglia', 'Diona C1', 'Chongyun C1', 'Xiangling C1', 'Razor', 'Xingqiu C3', 'Beidou C1', 'Klee', 'Fischl C1', 'Kaeya C3', 'Ningguang C4', 'Xinyan C3', 'Xiao', 'Lisa C1', 'Bennett C5', 'Fischl C1', 'Barbara C2', 'Beidou C2', 'Venti C3', 'Noelle', 'Diluc', 'Amber C5', 'Razor C4', '9', '0']"
+    "units": [
+      "Beidou C1",
+      "Qiqi C1",
+      "Xingqiu C1",
+      "Sucrose C1",
+      "Bennett C1",
+      "Lisa C1",
+      "Barbara",
+      "Diona",
+      "Tartaglia",
+      "Diona C1",
+      "Chongyun C1",
+      "Xiangling C1",
+      "Razor",
+      "Xingqiu C3",
+      "Beidou C1",
+      "Klee",
+      "Fischl C1",
+      "Kaeya C3",
+      "Ningguang C4",
+      "Xinyan C3",
+      "Xiao",
+      "Lisa C1",
+      "Bennett C5",
+      "Fischl C1",
+      "Barbara C2",
+      "Beidou C2",
+      "Venti C3",
+      "Noelle",
+      "Diluc",
+      "Amber C5",
+      "Razor C4",
+      "9",
+      "0"
+    ]
   },
   "105075048204779520": {
     "four_pity": 1,
@@ -37,7 +135,11 @@
     "wishes": 11,
     "primos": 1672,
     "cooldown": "2020-12-13 06:14:07.617000",
-    "units": "['Xingqiu', '9', '0']"
+    "units": [
+      "Xingqiu",
+      "9",
+      "0"
+    ]
   },
   "601180321227997185": {
     "four_pity": 2,
@@ -45,7 +147,18 @@
     "wishes": 112,
     "primos": 648,
     "cooldown": "2021-04-28 16:33:37.616000",
-    "units": "['Xinyan', 'Sucrose C1', 'Ningguang', 'Xingqiu', 'Xiangling C1', 'Chongyun C1', 'Bennett', 'Noelle', '9', '0']"
+    "units": [
+      "Xinyan",
+      "Sucrose C1",
+      "Ningguang",
+      "Xingqiu",
+      "Xiangling C1",
+      "Chongyun C1",
+      "Bennett",
+      "Noelle",
+      "9",
+      "0"
+    ]
   },
   "290471434336075776": {
     "four_pity": 9,
@@ -53,7 +166,19 @@
     "wishes": 112,
     "primos": 190,
     "cooldown": "2021-04-17 17:32:11.102000",
-    "units": "['Barbara', 'Sucrose C1', 'Keqing', 'Beidou', 'Chongyun', 'Ningguang C1', 'Amber', 'Razor C1', 'Noelle', '9', '0']"
+    "units": [
+      "Barbara",
+      "Sucrose C1",
+      "Keqing",
+      "Beidou",
+      "Chongyun",
+      "Ningguang C1",
+      "Amber",
+      "Razor C1",
+      "Noelle",
+      "9",
+      "0"
+    ]
   },
   "304432371950944267": {
     "four_pity": 2,
@@ -61,7 +186,27 @@
     "wishes": 279,
     "primos": 100,
     "cooldown": "2021-07-03 00:04:46.294000",
-    "units": "['Kaeya', 'Kaeya C1', 'Xiangling C3', 'Qiqi C1', 'Xinyan C1', 'Fischl C1', 'Ningguang', 'Amber C1', 'Xingqiu', 'Razor', 'Lisa C3', 'Sucrose C1', 'Bennett C2', 'Noelle', 'Klee', 'Chongyun', 'Diona', '9', '0']"
+    "units": [
+      "Kaeya",
+      "Kaeya C1",
+      "Xiangling C3",
+      "Qiqi C1",
+      "Xinyan C1",
+      "Fischl C1",
+      "Ningguang",
+      "Amber C1",
+      "Xingqiu",
+      "Razor",
+      "Lisa C3",
+      "Sucrose C1",
+      "Bennett C2",
+      "Noelle",
+      "Klee",
+      "Chongyun",
+      "Diona",
+      "9",
+      "0"
+    ]
   },
   "209635939708960769": {
     "four_pity": 8,
@@ -69,7 +214,13 @@
     "wishes": 22,
     "primos": 1744,
     "cooldown": "2020-12-18 12:20:28.272000",
-    "units": "['Diona', 'Fischl', 'Xiangling', '9', '0']"
+    "units": [
+      "Diona",
+      "Fischl",
+      "Xiangling",
+      "9",
+      "0"
+    ]
   },
   "483847297151664138": {
     "four_pity": 0,
@@ -77,7 +228,19 @@
     "wishes": 89,
     "primos": 1760,
     "cooldown": "2021-01-06 01:49:54.055000",
-    "units": "['Razor', 'Xingqiu', 'Xiangling', 'Noelle', 'Barbara', 'Bennett C1', 'Xinyan', 'Ningguang', 'Chongyun', '9', '0']"
+    "units": [
+      "Razor",
+      "Xingqiu",
+      "Xiangling",
+      "Noelle",
+      "Barbara",
+      "Bennett C1",
+      "Xinyan",
+      "Ningguang",
+      "Chongyun",
+      "9",
+      "0"
+    ]
   },
   "698358976836010004": {
     "four_pity": 1,
@@ -85,7 +248,11 @@
     "wishes": 11,
     "primos": 1672,
     "cooldown": "2020-12-13 21:35:51.858000",
-    "units": "['Beidou', '9', '0']"
+    "units": [
+      "Beidou",
+      "9",
+      "0"
+    ]
   },
   "361041798346440707": {
     "four_pity": 0,
@@ -93,7 +260,14 @@
     "wishes": 40,
     "primos": 1154,
     "cooldown": "2021-03-05 00:56:01.307000",
-    "units": "['Razor', 'Bennett', 'Diona', 'Xiangling', '9', '0']"
+    "units": [
+      "Razor",
+      "Bennett",
+      "Diona",
+      "Xiangling",
+      "9",
+      "0"
+    ]
   },
   "177745293213827072": {
     "four_pity": 4,
@@ -101,7 +275,36 @@
     "wishes": 565,
     "primos": 4780,
     "cooldown": "2021-07-13 03:43:50.579000",
-    "units": "['Sucrose', 'Bennett', 'Ningguang', 'Kaeya C1', 'Beidou C1', 'Xinyan', 'Chongyun', 'Qiqi', 'Xingqiu C1', 'Lisa', 'Fischl C1', 'Xiao C1', 'Razor C4', 'Xingqiu C1', 'Barbara C5', 'Zhongli C1', 'Sucrose C1', 'Chongyun C3', 'Bennett C3', 'Xinyan C4', 'Noelle', 'Xiangling C1', 'Diona C2', 'Amber C4', 'Venti', 'Lisa C2', '9', '0']"
+    "units": [
+      "Sucrose",
+      "Bennett",
+      "Ningguang",
+      "Kaeya C1",
+      "Beidou C1",
+      "Xinyan",
+      "Chongyun",
+      "Qiqi",
+      "Xingqiu C1",
+      "Lisa",
+      "Fischl C1",
+      "Xiao C1",
+      "Razor C4",
+      "Xingqiu C1",
+      "Barbara C5",
+      "Zhongli C1",
+      "Sucrose C1",
+      "Chongyun C3",
+      "Bennett C3",
+      "Xinyan C4",
+      "Noelle",
+      "Xiangling C1",
+      "Diona C2",
+      "Amber C4",
+      "Venti",
+      "Lisa C2",
+      "9",
+      "0"
+    ]
   },
   "708801648272736358": {
     "four_pity": 9,
@@ -109,7 +312,19 @@
     "wishes": 140,
     "primos": 930,
     "cooldown": "2021-05-18 03:37:21.101000",
-    "units": "['Xiangling C3', 'Fischl C1', 'Barbara C1', 'Chongyun', 'Jean', 'Razor', 'Ningguang', 'Beidou C1', 'Noelle', '9', '0']"
+    "units": [
+      "Xiangling C3",
+      "Fischl C1",
+      "Barbara C1",
+      "Chongyun",
+      "Jean",
+      "Razor",
+      "Ningguang",
+      "Beidou C1",
+      "Noelle",
+      "9",
+      "0"
+    ]
   },
   "412054951842545666": {
     "four_pity": 0,
@@ -117,7 +332,11 @@
     "wishes": 10,
     "primos": 39388,
     "cooldown": "2021-04-02 20:33:55.724000",
-    "units": "['Xingqiu', '9', '0']"
+    "units": [
+      "Xingqiu",
+      "9",
+      "0"
+    ]
   },
   "164110273735688192": {
     "four_pity": 0,
@@ -125,7 +344,26 @@
     "wishes": 200,
     "primos": 562,
     "cooldown": "2021-06-24 12:22:07.540000",
-    "units": "['Xiangling C1', 'Noelle', 'Ningguang', 'Beidou', 'Keqing', 'Fischl', 'Diona C1', 'Chongyun', 'Lisa C1', 'Kaeya C1', 'Barbara C1', 'Mona', 'Sucrose', 'Fischl C1', 'Amber', 'Razor', '9', '0']"
+    "units": [
+      "Xiangling C1",
+      "Noelle",
+      "Ningguang",
+      "Beidou",
+      "Keqing",
+      "Fischl",
+      "Diona C1",
+      "Chongyun",
+      "Lisa C1",
+      "Kaeya C1",
+      "Barbara C1",
+      "Mona",
+      "Sucrose",
+      "Fischl C1",
+      "Amber",
+      "Razor",
+      "9",
+      "0"
+    ]
   },
   "516757644229214208": {
     "four_pity": 3,
@@ -133,7 +371,39 @@
     "wishes": 452,
     "primos": 52,
     "cooldown": "2021-07-12 08:42:03.645000",
-    "units": "['Xinyan', 'Chongyun C1', 'Jean C1', 'Noelle', 'Bennett', 'Razor C1', 'Fischl', 'Chongyun C1', 'Diona', 'Xingqiu', 'Mona', 'Lisa C1', 'Fischl C1', 'Amber C5', 'Bennett C1', 'Ningguang C1', 'Mona C1', 'Xingqiu C1', 'Barbara C2', 'Noelle C1', 'Xinyan C2', 'Zhongli', 'Fischl C1', 'Razor C2', 'Kaeya C2', 'Xiangling C2', 'Diona C1', 'Diluc', 'Beidou', '9', '0']"
+    "units": [
+      "Xinyan",
+      "Chongyun C1",
+      "Jean C1",
+      "Noelle",
+      "Bennett",
+      "Razor C1",
+      "Fischl",
+      "Chongyun C1",
+      "Diona",
+      "Xingqiu",
+      "Mona",
+      "Lisa C1",
+      "Fischl C1",
+      "Amber C5",
+      "Bennett C1",
+      "Ningguang C1",
+      "Mona C1",
+      "Xingqiu C1",
+      "Barbara C2",
+      "Noelle C1",
+      "Xinyan C2",
+      "Zhongli",
+      "Fischl C1",
+      "Razor C2",
+      "Kaeya C2",
+      "Xiangling C2",
+      "Diona C1",
+      "Diluc",
+      "Beidou",
+      "9",
+      "0"
+    ]
   },
   "436996220079177728": {
     "four_pity": 5,
@@ -141,7 +411,30 @@
     "wishes": 799,
     "primos": 2816,
     "cooldown": "2021-07-13 04:26:05.645000",
-    "units": "['Fischl', 'Fischl C1', 'Beidou C1', 'Diona C1', 'Lisa', 'Ningguang C1', 'Keqing', 'Jean C1', 'Diona C1', 'Sucrose C4', 'Chongyun C1', 'Ningguang C1', 'Bennett C3', 'Razor C1', 'Amber', 'Diluc', 'Barbara', 'Sucrose C1', 'Noelle', 'Ningguang C1', '9', '0']"
+    "units": [
+      "Fischl",
+      "Fischl C1",
+      "Beidou C1",
+      "Diona C1",
+      "Lisa",
+      "Ningguang C1",
+      "Keqing",
+      "Jean C1",
+      "Diona C1",
+      "Sucrose C4",
+      "Chongyun C1",
+      "Ningguang C1",
+      "Bennett C3",
+      "Razor C1",
+      "Amber",
+      "Diluc",
+      "Barbara",
+      "Sucrose C1",
+      "Noelle",
+      "Ningguang C1",
+      "9",
+      "0"
+    ]
   },
   "549767503526625298": {
     "four_pity": 3,
@@ -149,23 +442,43 @@
     "wishes": 83,
     "primos": 460,
     "cooldown": "2021-05-24 13:38:05.091000",
-    "units": "['Tartaglia', 'Xiangling', 'Chongyun', 'Noelle', 'Xinyan', 'Fischl', 'Razor', 'Diona', 'Lisa', 'Bennett', '9', '0']"
+    "units": [
+      "Tartaglia",
+      "Xiangling",
+      "Chongyun",
+      "Noelle",
+      "Xinyan",
+      "Fischl",
+      "Razor",
+      "Diona",
+      "Lisa",
+      "Bennett",
+      "9",
+      "0"
+    ]
   },
   "178311504049864714": {
-    "four_pity": 0,
-    "five_pity": 0,
+    "four_pity": 1,
+    "five_pity": 1,
     "wishes": 0,
-    "primos": 1832,
+    "primos": 232,
     "cooldown": "2021-04-18 05:20:00.333000",
-    "units": "['9', '0']"
+    "units": [
+      "9",
+      "0"
+    ]
   },
   "75056274055630848": {
-    "four_pity": 0,
-    "five_pity": 0,
-    "wishes": 0,
-    "primos": 1832,
-    "cooldown": "2021-04-18 05:20:03.726000",
-    "units": "['9', '0']"
+    "four_pity": 9,
+    "five_pity": 46,
+    "wishes": 32,
+    "primos": 231999999999974858,
+    "cooldown": "2021-08-08",
+    "units": [
+      "9",
+      "0",
+      "Lisa C6"
+    ]
   },
   "487437130981965825": {
     "four_pity": 0,
@@ -173,7 +486,12 @@
     "wishes": 22,
     "primos": 762,
     "cooldown": "2021-06-13 21:12:40.954000",
-    "units": "['Lisa', 'Fischl C1', '9', '0']"
+    "units": [
+      "Lisa",
+      "Fischl C1",
+      "9",
+      "0"
+    ]
   },
   "247929340665266186": {
     "four_pity": 0,
@@ -181,6 +499,12 @@
     "wishes": 25,
     "primos": 122,
     "cooldown": "2021-07-05 02:32:39.706000",
-    "units": "['Sucrose', 'Razor', 'Bennett', '9', '0']"
+    "units": [
+      "Sucrose",
+      "Razor",
+      "Bennett",
+      "9",
+      "0"
+    ]
   }
 }
