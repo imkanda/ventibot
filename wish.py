@@ -3,7 +3,7 @@ import json
 import random
 import ast
 import pandas as pd
-from datetime import datetime as dt
+from datetime import date
 
 
 class Wish:
@@ -175,13 +175,13 @@ class Wish:
             self.primo_transaction(userid, 1832)
             daily_valid = True
         primo_add = 458
-        current_utc = dt.strptime(str(dt.utcnow()), '%Y-%m-%d %H:%M:%S.%f').date()
+        current_date = str(date.today())
         if not daily_valid:
-            last_cooldown = dt.strptime(str(self.get_cooldown(userid)), '%Y-%m-%d %H:%M:%S.%f').date()
-            if str(last_cooldown) < str(current_utc):
+            cooldown_date = self.get_cooldown(userid)
+            if str(current_date) > str(cooldown_date):
                 daily_valid = True
         if daily_valid:
-            self.set_cooldown(userid, str(current_utc))
+            self.set_cooldown(userid, current_date)
             return self.primo_transaction(userid, primo_add)
         else:
             return False
