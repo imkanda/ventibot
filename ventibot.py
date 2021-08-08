@@ -211,7 +211,6 @@ class MyClient(discord.Client):
                         description='{}, below are your pulls!'.format(message.author.mention),
                         colour=embed_colour
                     )
-                    print(_wish)
                     for pulled in _wish:
                         wish_embed.add_field(name=chr(173), value=f'{pulled[1]} {pulled[0][1:]}', inline=False)
                     wish_embed.set_footer(text='Wishes')

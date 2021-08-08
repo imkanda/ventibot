@@ -54,8 +54,7 @@ class Wish:
                     highest_rarity = "3*"
                 fivestar_pity += 1
                 fourstar_pity += 1
-            # pulled = random.choice(self.pullables["rarities"][rarity])
-            pulled = "cFischl"
+            pulled = random.choice(self.pullables["rarities"][rarity])
             wish_pulls.append([pulled, self.get_emote_pullable(pulled)])
             if not simulation:
                 self.save_pity(userid, [fourstar_pity, fivestar_pity])
@@ -88,7 +87,6 @@ class Wish:
             units.append(item)
         elif item[0] == "c":  # item is a character, check if already owned+constellation level then add
             clevel = self.get_character_constellation(userid, item[1:])
-            print(f"{item} clvl{clevel}")
             if clevel == -1:
                 units.append(item)
             elif clevel in range(0, 5):
@@ -100,9 +98,7 @@ class Wish:
     def get_character_constellation(self, userid: int, character: str):
         units = self.get_user_data(userid)["units"]
         clevel_int = -1
-        print(character)
         for unit in units:
-            print(unit)
             if unit[1:] == character:
                 clevel_int = 0
             elif unit[1:len(character)] == character:
