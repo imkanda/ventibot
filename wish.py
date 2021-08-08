@@ -22,7 +22,7 @@ class Wish:
         fivestar_pity = 1
         if not simulation:
             fourstar_pity, fivestar_pity = self.get_pity(userid)
-            if not self.primo_transaction(userid, pulls*160):
+            if not self.primo_transaction(userid, 0-(pulls*160)):
                 return False, False
         highest_rarity = None
         wish_pulls = []
@@ -54,13 +54,22 @@ class Wish:
                     highest_rarity = "3*"
                 fivestar_pity += 1
                 fourstar_pity += 1
-            pulled = random.choice(self.pullables[rarity])
-            wish_pulls.append(pulled)
+            # pulled = random.choice(self.pullables["rarities"][rarity])
+            pulled = "cFischl"
+            wish_pulls.append([pulled, self.get_emote_pullable(pulled)])
             if not simulation:
                 self.save_pity(userid, [fourstar_pity, fivestar_pity])
-                self.add_item(pulled)
+                self.add_item(userid, pulled)
                 self.add_wishes(userid, 1)
         return highest_rarity, wish_pulls
+
+    def get_emote_pullable(self, pullable):
+        emote = None
+        fl_to_type = {"w": "weapons", "c": "characters"}
+        for i in self.pullables[fl_to_type[pullable[0]]]:
+            if i == pullable[1:]:
+                emote = self.pullables[fl_to_type[pullable[0]]][i]
+        return emote
 
     def get_all_data(self) -> dict:
         with open("wishes.json", "r") as wishes_file:
@@ -79,21 +88,24 @@ class Wish:
             units.append(item)
         elif item[0] == "c":  # item is a character, check if already owned+constellation level then add
             clevel = self.get_character_constellation(userid, item[1:])
+            print(f"{item} clvl{clevel}")
             if clevel == -1:
                 units.append(item)
             elif clevel in range(0, 5):
-                cindex = units.index(item[1:])
+                cindex = units.index(item)
                 del units[cindex]
-                units.append(f"{item[1:]} C{clevel+1}")
-        self.save_units(units)
+                units.append(f"{item} C{clevel+1}")
+        self.save_units(userid, units)
 
     def get_character_constellation(self, userid: int, character: str):
         units = self.get_user_data(userid)["units"]
         clevel_int = -1
+        print(character)
         for unit in units:
-            if unit == character:
+            print(unit)
+            if unit[1:] == character:
                 clevel_int = 0
-            elif unit[0:len(character)] == character:
+            elif unit[1:len(character)] == character:
                 constellation_level = unit[-2:]
                 if constellation_level[0] == 'C':
                     try:
@@ -132,7 +144,6 @@ class Wish:
     def primo_transaction(self, userid: int, num: int):
         user_data = self.get_user_data(userid)
         if num > 0:  # add primos
-            print(user_data)
             user_data["primos"] += num
             self.save_user_data(userid, user_data)
         elif num < 0:  # use primos
@@ -185,6 +196,17 @@ class Wish:
             return self.primo_transaction(userid, primo_add)
         else:
             return False
+
+    def get_catalog(self, userid):
+        data = self.get_user_data(userid)
+        return data['units']
+
+    def catalog_parse(self, userid):
+        catalog = self.get_catalog(userid)
+        units_and_emojis = {}
+        for unit in catalog:
+            units_and_emojis[unit[1:]] = self.get_emote_pullable(unit)
+        return units_and_emojis
 
     # enters units into user's catalog and tracks duplicates
     def dupes(self, userid, index, namepull):

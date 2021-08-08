@@ -1,220 +1,120 @@
 {
-   "4*": [
-      [
-         "cAmber",
-         "<:amber:779443715713400883>"
-      ],
-      [
-         "cBarbara",
-         "<:barbara:779443715806199889>"
-      ],
-      [
-         "cBeidou",
-         "<:beidou:779443715910795324>"
-      ],
-      [
-         "cBennett",
-         "<:bennett:779443715293970503>"
-      ],
-      [
-         "cChongyun",
-         "<:chongyun:779443715738566657>"
-      ],
-      [
-         "cDiona",
-         "<:diona:779443715709337681>"
-      ],
-      [
-         "cFischl",
-         "<:fischl:779443715696623626>"
-      ],
-      [
-         "cKaeya",
-         "<:kaeya:779443715688235068>"
-      ],
-      [
-         "cLisa",
-         "<:lisa:779443715885367336>"
-      ],
-      [
-         "cNingguang",
-         "<:ningguang:779443715449946144>"
-      ],
-      [
-         "cNoelle",
-         "<:noelle:779443715709337630>"
-      ],
-      [
-         "cRazor",
-         "<:razorgenshin:779443715768844318>"
-      ],
-      [
-         "cSucrose",
-         "<:sucrose:779443715542351903>"
-      ],
-      [
-         "cXiangling",
-         "<:xiangling:779443715625320478>"
-      ],
-      [
-         "cXingqiu",
-         "<:xingqiu:779443715511943218>"
-      ],
-      [
-         "cXinyan",
-         "<:xinyan:779443715508535326>"
-      ]
-   ],
-   "5*": [
-      [
-         "cDiluc",
-         "<:diluc:779443715882221578>"
-      ],
-      [
-         "cJean",
-         "<:jean:779443715675521024>"
-      ],
-      [
-         "cKeqing",
-         "<:keqing:779443715717857320>"
-      ],
-      [
-         "cKlee",
-         "<:klee:779443715768057976>"
-      ],
-      [
-         "cMona",
-         "<:mona:779443715395026955>"
-      ],
-      [
-         "cQiqi",
-         "<:qiqi:779443715727032330>"
-      ],
-      [
-         "cTartaglia",
-         "<:childe:779443715155820595>"
-      ],
-      [
-         "cVenti",
-         "<:venti:779443715382050858>"
-      ],
-      [
-         "cXiao",
-         "<:xiao:779443715437232128>"
-      ],
-      [
-         "cZhongli",
-         "<:zhongli:779443715809738763>"
-      ]
-   ],
-   "3*": [
-      [
-         "wEbony Bow",
-         "<:ebony_bow:784915675932131388>"
-      ],
-      [
-         "wMessenger",
-         "<:messenger:784915675847589959>"
-      ],
-      [
-         "wRaven Bow",
-         "<:raven_bow:784915675457650749>"
-      ],
-      [
-         "wRecurve Bow",
-         "<:recurve_bow:784915675662516264>"
-      ],
-      [
-         "wSharpshooters Oath",
-         "<:sharpshooters_oath:784915675277164565>"
-      ],
-      [
-         "wSlingshot",
-         "<:slingshot:784915676015886376>"
-      ],
-      [
-         "wAmber Catalyst",
-         "<:amber_catalyst:784915674904395837>"
-      ],
-      [
-         "wEmerald Orb",
-         "<:emerald_orb:784915675633811467>"
-      ],
-      [
-         "wMagic Guide",
-         "<:magic_guide:784915675553464342>"
-      ],
-      [
-         "wOtherwordly Story",
-         "<:otherworldly_story:784915675331821569>"
-      ],
-      [
-         "wThrilling Tales of Dragon Slayers",
-         "<:thrilling_tales:784915675675361291>"
-      ],
-      [
-         "wTwin Nephrite",
-         "<:twin_nephrite:784915675835531305>"
-      ],
-      [
-         "wBloodtainted Greatsword",
-         "<:bloodtainted_greatsword:784915674924711956>"
-      ],
-      [
-         "wDebate Club",
-         "<:debate_club:784915675814035546>"
-      ],
-      [
-         "wFerrous Shadow",
-         "<:ferrous_shadow:784915675961098260>"
-      ],
-      [
-         "wQuartz",
-         "<:quartz:784915675641544704>"
-      ],
-      [
-         "wSkyrider Greatsword",
-         "<:skyrider_greatsword:784915675734343741>"
-      ],
-      [
-         "wWhite Iron Greatsword",
-         "<:white_iron_greatsword:784915675448606751>"
-      ],
-      [
-         "wBlack Tassel",
-         "<:black_tassel:784915674912260176>"
-      ],
-      [
-         "wHalberd",
-         "<:halberd:784915675990327296>"
-      ],
-      [
-         "wWhite Tassel",
-         "<:white_tassel:784915675532754964>"
-      ],
-      [
-         "wCool Steel",
-         "<:cool_steel:784915675042283522>"
-      ],
-      [
-         "wDark Iron Greatsword",
-         "<:dark_iron_sword:784915675838676997>"
-      ],
-      [
-         "wFillet Blade",
-         "<:fillet_blade:784915675336540171>"
-      ],
-      [
-         "wHarbringer of Dawn",
-         "<:harbringer_of_dawn:784915675629879336>"
-      ],
-      [
-         "wSkyrider Sword",
-         "<:skyrider_sword:784915675860303882>"
-      ],
-      [
-         "wTravelers Handy Sword",
-         "<:traverlers_handy_sword:784915675378352179>"
-      ]
-   ]
+  "characters": {
+    "Amber": "<:amber:779443715713400883>",
+    "Barbara": "<:barbara:779443715806199889>",
+    "Beidou": "<:beidou:779443715910795324>",
+    "Bennett": "<:bennett:779443715293970503>",
+    "Chongyun": "<:chongyun:779443715738566657>",
+    "Diona": "<:diona:779443715709337681>",
+    "Fischl": "<:fischl:779443715696623626>",
+    "Kaeya": "<:kaeya:779443715688235068>",
+    "Lisa": "<:lisa:779443715885367336>",
+    "Ningguang": "<:ningguang:779443715449946144>",
+    "Noelle": "<:noelle:779443715709337630>",
+    "Razor": "<:razorgenshin:779443715768844318>",
+    "Sucrose": "<:sucrose:779443715542351903>",
+    "Xiangling": "<:xiangling:779443715625320478>",
+    "Xingqiu": "<:xingqiu:779443715511943218>",
+    "Xinyan": "<:xinyan:779443715508535326>",
+    "Diluc": "<:diluc:779443715882221578>",
+    "Jean": "<:jean:779443715675521024>",
+    "Keqing": "<:keqing:779443715717857320>",
+    "Klee": "<:klee:779443715768057976>",
+    "Mona": "<:mona:779443715395026955>",
+    "Qiqi": "<:qiqi:779443715727032330>",
+    "Tartaglia": "<:childe:779443715155820595>",
+    "Venti": "<:venti:779443715382050858>",
+    "Xiao": "<:xiao:779443715437232128>",
+    "Zhongli": "<:zhongli:779443715809738763>"
+  },
+  "weapons": {
+    "Ebony Bow": "<:ebony_bow:784915675932131388>",
+    "Messenger": "<:messenger:784915675847589959>",
+    "Raven Bow": "<:raven_bow:784915675457650749>",
+    "Recurve Bow": "<:recurve_bow:784915675662516264>",
+    "Sharpshooters Oath": "<:sharpshooters_oath:784915675277164565>",
+    "Slingshot": "<:slingshot:784915676015886376>",
+    "Amber Catalyst": "<:amber_catalyst:784915674904395837>",
+    "Emerald Orb": "<:emerald_orb:784915675633811467>",
+    "Magic Guide": "<:magic_guide:784915675553464342>",
+    "Otherwordly Story": "<:otherworldly_story:784915675331821569>",
+    "Thrilling Tales of Dragon Slayers": "<:thrilling_tales:784915675675361291>",
+    "Twin Nephrite": "<:twin_nephrite:784915675835531305>",
+    "Bloodtainted Greatsword": "<:bloodtainted_greatsword:784915674924711956>",
+    "Debate Club": "<:debate_club:784915675814035546>",
+    "Ferrous Shadow": "<:ferrous_shadow:784915675961098260>",
+    "Quartz": "<:quartz:784915675641544704>",
+    "Skyrider Greatsword": "<:skyrider_greatsword:784915675734343741>",
+    "White Iron Greatsword": "<:white_iron_greatsword:784915675448606751>",
+    "Black Tassel": "<:black_tassel:784915674912260176>",
+    "Halberd": "<:halberd:784915675990327296>",
+    "White Tassel": "<:white_tassel:784915675532754964>",
+    "Cool Steel": "<:cool_steel:784915675042283522>",
+    "Dark Iron Greatsword": "<:dark_iron_sword:784915675838676997>",
+    "Fillet Blade": "<:fillet_blade:784915675336540171>",
+    "Harbringer of Dawn": "<:harbringer_of_dawn:784915675629879336>",
+    "Skyrider Sword": "<:skyrider_sword:784915675860303882>",
+    "Travelers Handy Sword": "<:traverlers_handy_sword:784915675378352179>"
+  },
+  "rarities": {
+    "5*": [
+      "cDiluc",
+      "cJean",
+      "cKeqing",
+      "cKlee",
+      "cMona",
+      "cQiqi",
+      "cTartaglia",
+      "cVenti",
+      "cXiao",
+      "cZhongli"
+    ],
+    "4*": [
+      "cAmber",
+      "cBarbara",
+      "cBeidou",
+      "cBennett",
+      "cChongyun",
+      "cDiona",
+      "cFischl",
+      "cKaeya",
+      "cLisa",
+      "cNingguang",
+      "cNoelle",
+      "cRazor",
+      "cSucrose",
+      "cXiangling",
+      "cXingqiu",
+      "cXinyan"
+    ],
+    "3*": [
+      "wEbony Bow",
+      "wMessenger",
+      "wRaven Bow",
+      "wRecurve Bow",
+      "wSharpshooters Oath",
+      "wSlingshot",
+      "wAmber Catalyst",
+      "wEmerald Orb",
+      "wMagic Guide",
+      "wOtherwordly Story",
+      "wThrilling Tales of Dragon Slayers",
+      "wTwin Nephrite",
+      "wBloodtainted Greatsword",
+      "wDebate Club",
+      "wFerrous Shadow",
+      "wQuartz",
+      "wSkyrider Greatsword",
+      "wWhite Iron Greatsword",
+      "wBlack Tassel",
+      "wHalberd",
+      "wWhite Tassel",
+      "wCool Steel",
+      "wDark Iron Greatsword",
+      "wFillet Blade",
+      "wHarbringer of Dawn",
+      "wSkyrider Sword",
+      "wTravelers Handy Sword"
+    ]
+  }
 }
