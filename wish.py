@@ -16,7 +16,7 @@ class Wish:
         # rarities for wish functions
         self.rarity_pull = ['5*', '4*', '3*']
 
-    def wish(self, userid, pulls:int = 10, simulation:bool = True):
+    def wish(self, userid, pulls: int = 10, simulation: bool = True):
         # if a pull is a simulation, it does not require a real userid or primogems and does not affect a players pity
         fourstar_pity = 1
         fivestar_pity = 1
@@ -27,7 +27,7 @@ class Wish:
         highest_rarity = None
         wish_pulls = []
 
-        for pull in range (0,pulls):
+        for pull in range(0, pulls):
             if fivestar_pity == 90:
                 rarity = '5*'
             elif fourstar_pity >= 10:
@@ -91,7 +91,7 @@ class Wish:
                 units.append(item[1:])
             elif clevel in range(0, 6):
                 for i in range(len(units)):
-                    if units[i].startswith(item[1:]): # assumes no duplicates of same unit since only detects first one
+                    if units[i].startswith(item[1:]):  # assumes no duplicates of same unit since only detects first one
                         units[i] = f"{item[1:]} C{clevel + 1}"
                         break
         self.save_units(userid, units)
@@ -113,7 +113,7 @@ class Wish:
 
     def save_user_data(self, userid: int, data=None):  # save user data or create new user if no data is provided
         if data is None:
-            data = {"four_pity": 0, "five_pity": 0, "wishes":0, "primos": 0, "cooldown": "", "units": []}
+            data = {"four_pity": 0, "five_pity": 0, "wishes": 0, "primos": 0, "cooldown": "", "units": []}
         wishes_dict = self.get_all_data()
         wishes_dict[str(userid)] = data
         with open("wishes.json", "w") as wishes_file:
@@ -156,7 +156,7 @@ class Wish:
         data = self.get_user_data(userid)
         return data['cooldown']
 
-    def set_cooldown(self, userid:int, cooldown: str):
+    def set_cooldown(self, userid: int, cooldown: str):
         data = self.get_user_data(userid)
         data['cooldown'] = cooldown
         self.save_user_data(userid, data)
