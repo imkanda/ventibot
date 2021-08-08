@@ -172,6 +172,45 @@ class MyClient(discord.Client):
                 else:
                     await message.channel.send("Only staff members can unmute.")
                     return
+            if message.content.startswith('.wish'):
+                simulation = False
+                wish_num = False
+                if message.content == '.wish multi':
+                    wish_num = 10
+                elif message.content == '.wish single':
+                    wish_num = 1
+                elif len(message.content) > 5:
+                    try:
+                        wish_num = int(message.content[5:])
+                        simulation = True
+                    except ValueError:
+                        await message.channel.send("Please enter a valid int!")
+                if wish_num:
+                    highest_rarity, _wish = wish.wish(message.author.id, wish_num, simulation)
+                    if highest_rarity == "5*":
+                        rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
+                        embed_colour = discord.Colour.gold()
+                    elif highest_rarity == "4*":  # what do we do if highest rarity is 3*
+                        rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
+                        embed_colour = discord.Colour.purple()
+                    wishing_embed = discord.Embed(
+                        description=f'{message.author.mention}, {wish_num} stars fall from the sky..',
+                        colour=discord.Colour(0x82d9f9)
+                    )
+                    wishing_embed.set_image(url=rarity_gif)
+                    wishing_embed.set_footer(text='Wishes')
+                    await message.channel.send(embed=wishing_embed)
+
+                    time.sleep(4)
+
+                    wish_embed = discord.Embed(
+                        description='{}, below are your pulls!'.format(message.author.mention),
+                        colour=embed_colour
+                    )
+                    for pulled in _wish:
+                        wish_embed.add_field(name=chr(173), value=f'{pulled[1]} {pulled[0][1:]}', inline=False)
+                    wish_embed.set_footer(text='Wishes')
+                    await message.channel.send(embed=wish_embed)
             if message.content == '.wish':
                 wish_ch = self.get_channel(784964222899453972)
                 multipull = wish.wishmulti_nonpity()
@@ -269,7 +308,6 @@ class MyClient(discord.Client):
                 #     await message.channel.send(embed=wish_embed)
                 # else:
                 #     await message.channel.send('Please use wish commands in <#784964222899453972> only!')
-
             if message.content == '.wish multi':
                 wish_ch = self.get_channel(787520738118598656)
                 if message.channel == wish_ch:
