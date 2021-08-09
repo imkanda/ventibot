@@ -11,6 +11,7 @@ class Wish:
     def __init__(self):
         with open("pullables.json", "r") as pullables_file:
             self.pullables = json.load(pullables_file)
+            self.FIVE_STAR_START_INDEX = 16
         # {rarity: [(character/wep, emoji)]}
 
         # rarities for wish functions
@@ -194,16 +195,16 @@ class Wish:
         else:
             return False
 
-    def get_catalog(self, userid):
-        data = self.get_user_data(userid)
-        return data['units']
-
-    def catalog_parse(self, userid):
-        catalog = self.get_catalog(userid)
-        units_and_emojis = {}
-        for unit in catalog:
-            units_and_emojis[unit[1:]] = self.get_emote_pullable(unit)
-        return units_and_emojis
+    # def get_catalog(self, userid):
+    #     data = self.get_user_data(userid)
+    #     return data['units']
+    #
+    # def catalog_parse(self, userid):
+    #     catalog = self.get_catalog(userid)
+    #     units_and_emojis = {}
+    #     for unit in catalog:
+    #         units_and_emojis[unit[1:]] = self.get_emote_pullable(unit)
+    #     return units_and_emojis
 
     # enters units into user's catalog and tracks duplicates
     def dupes(self, userid, index, namepull):
@@ -309,44 +310,23 @@ class Wish:
             return {}
 
         # User exists and has units
-        userCatalog_emotes = []
-        userCatalog_names = []
+        catalog_response = []
+        rarities  = self.pullables["rarities"]
+        emoteList = self.pullables["characters"]
         for unit in unitData:
-            if unit in self.pullables[self.rarity_pull[2]]:
-                break
-            elif unit in self.pullables[self.rarity_pull[1]]:
-                break
-            elif unit in self.pullables[self.rarity_pull[0]]:
-                break
+            five_stars = rarities[self.rarity_pull[0]]
+            four_stars = rarities[self.rarity_pull[1]]
+            for i in range(len(four_stars)):
+                if four_stars[i][1:] in unit:
+                    catalog_response.append(f"{emoteList[i]} {unit}")
+                    continue
 
-        # for unit in user_catalog:
-        #     # have to parse the dupes in the catalog differently to grab the right index and emotes
-        #     if 'C' in unit:
-        #         # splits the unit dupe name so it uses just the actual unit name
-        #         nondupe_unit = unit.split(' ')
-        #         corrected_unit = nondupe_unit[0]
-        #         if corrected_unit in self.fourstars_units:
-        #             # uses the index to grab the correct emote from the parallel arrays
-        #             catalogindex = self.fourstars_units.index(corrected_unit)
-        #             usercatalog_emotes.append(self.fourstar_emotes[catalogindex])
-        #             usercatalog_names.append(unit)
-        #         if corrected_unit in self.fivestars_units:
-        #             # uses the index to grab the correct emote from the parallel arrays
-        #             catalogindex = self.fivestars_units.index(corrected_unit)
-        #             usercatalog_emotes.append(self.fivestar_emotes[catalogindex])
-        #             usercatalog_names.append(unit)
-        #     else:
-        #         if unit in self.fourstars_units:
-        #             # uses just the unit name since it's not a dupe
-        #             catalogindex = self.fourstars_units.index(unit)
-        #             usercatalog_emotes.append(self.fourstar_emotes[catalogindex])
-        #             usercatalog_names.append(self.fourstars_units[catalogindex])
-        #         if unit in self.fivestars_units:
-        #             # uses just the unit name since it's not a dupe
-        #             catalogindex = self.fivestars_units.index(unit)
-        #             usercatalog_emotes.append(self.fivestar_emotes[catalogindex])
-        #             usercatalog_names.append(self.fivestars_units[catalogindex])
-        # return usercatalog_emotes, usercatalog_names
+            for i in range(len(five_stars)):
+                if five_stars[i][1:] in unit:
+                    catalog_response.append(f"{emoteList[self.FIVE_STAR_START_INDEX + i]} {unit}")
+                    continue
+
+        return catalog_response
 
     # parses user's total wish count
     def wishes_check(self, userid):
