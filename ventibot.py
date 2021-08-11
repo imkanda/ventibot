@@ -629,5 +629,7 @@ class MyClient(discord.Client):
         # updates online presence
         await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='a ballad'))
 
-client = MyClient()
+intents = discord.Intents.default()
+intents.members = True
+client = MyClient(intents=intents)
 client.run('')
