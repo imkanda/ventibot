@@ -66,9 +66,15 @@ class Wish:
     def get_emote_pullable(self, pullable):
         emote = None
         fl_to_type = {"w": "weapons", "c": "characters"}
-        for i in self.pullables[fl_to_type[pullable[0]]]:
-            if i == pullable[1:]:
-                emote = self.pullables[fl_to_type[pullable[0]]][i]
+        if pullable[0] == 'w':
+            for i in self.pullables["weapons"]:
+                if i == pullable[1:]:
+                    emote = self.pullables[fl_to_type[pullable[0]]][i]
+        elif pullable[0] == 'c':
+            charArr = self.pullables["character_index"]
+            for i in range(len(charArr)):
+                if charArr[i] == pullable[1:]:
+                    emote = self.pullables["characters"][i]
         return emote
 
     def get_all_data(self) -> dict:
