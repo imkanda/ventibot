@@ -6,13 +6,11 @@ import pandas as pd
 from wish import Wish
 from embeds import Embeds
 from mangascrape import Scrape
-from ch_guides import Guides
 
 
 wish = Wish()
 embeds = Embeds()
 scrape = Scrape()
-guides = Guides()
 
 
 class MyClient(discord.Client):
@@ -684,6 +682,7 @@ class MyClient(discord.Client):
         print('Connected')
         # updates online presence
         await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='a ballad'))
+
 
 intents = discord.Intents.default()
 intents.members = True
