@@ -424,7 +424,7 @@ class MyClient(discord.Client):
                         colour=discord.Colour.green()
                     )
                     for unit in catalog:
-                        catalog_embed.add_field(name=chr(173), value=f'{catalog[unit]} {unit}')
+                        catalog_embed.add_field(name=chr(173), value=unit)
                     catalog_embed.set_footer(text='Catalog')
                     await message.channel.send(embed=catalog_embed)
 
