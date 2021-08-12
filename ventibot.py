@@ -171,6 +171,8 @@ class MyClient(discord.Client):
                     await message.channel.send("Only staff members can unmute.")
                     return
             if message.content.startswith('.wish'):
+                rarity_gif = ''
+                embed_colour = discord.Colour.green()
                 simulation = False
                 wish_num = False
                 if message.content == '.wish multi':
@@ -215,160 +217,7 @@ class MyClient(discord.Client):
                         wish_embed.add_field(name=chr(173), value=f'{pulled[1]} {pulled[0][1:]}', inline=False)
                     wish_embed.set_footer(text='Wishes')
                     await message.channel.send(embed=wish_embed)
-            if message.content == '.wish multi':
-                wish_ch = self.get_channel(787520738118598656)
-                if message.channel == wish_ch:
-                    userid = message.author.id
-                    primo_check = wish.primo_check(userid)
-                    if primo_check == 'NONE':
-                        await message.channel.send('{}, you have not been registered yet. Use .daily to be able to '
-                                                   'wish.'.format(message.author.mention))
-                    else:
-                        initial_primos = primo_check[0]
-                        index = primo_check[1]
-                        if int(initial_primos) >= 1600:
-                            sub_primos = int(initial_primos) - 1600
-                            contents = pd.read_csv('server_wishes.csv', dtype=str)
-                            contents.at[index, 'primos'] = sub_primos
-                            contents.to_csv('server_wishes.csv', index=False)
-                            multipull = wish.wishmulti_pity(userid, index)
-                            emoji_pull = multipull[0]
-                            name_pull = multipull[1]
-                            wish.dupes(userid, index, name_pull)
-                            if "5" in multipull[2]:
-                                rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
-                                embed_colour = discord.Colour.gold()
-                            else:
-                                rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
-                                embed_colour = discord.Colour.purple()
-                            first_pull = f"{emoji_pull[0]} {name_pull[0]}"
-                            second_pull = f"{emoji_pull[1]} {name_pull[1]}"
-                            third_pull = f"{emoji_pull[2]} {name_pull[2]}"
-                            fourth_pull = f"{emoji_pull[3]} {name_pull[3]}"
-                            fifth_pull = f"{emoji_pull[4]} {name_pull[4]}"
-                            sixth_pull = f"{emoji_pull[5]} {name_pull[5]}"
-                            seventh_pull = f"{emoji_pull[6]} {name_pull[6]}"
-                            eighth_pull = f"{emoji_pull[7]} {name_pull[7]}"
-                            ninth_pull = f"{emoji_pull[8]} {name_pull[8]}"
-                            tenth_pull = f"{emoji_pull[9]} {name_pull[9]}"
 
-                            wishing_embed = discord.Embed(
-                                description='{}, ten stars fall from the sky..'.format(message.author.mention),
-                                colour=discord.Colour(0x82d9f9)
-                            )
-                            wishing_embed.set_image(url=rarity_gif)
-                            wishing_embed.set_footer(text='Wishes')
-                            await message.channel.send(embed=wishing_embed)
-
-                            time.sleep(4)
-
-                            wish_embed = discord.Embed(
-                                description='{}, below are your pulls!'.format(message.author.mention),
-                                colour=embed_colour
-                            )
-                            wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
-                            wish_embed.add_field(name=chr(173), value=second_pull, inline=False)
-                            wish_embed.add_field(name=chr(173), value=third_pull, inline=False)
-                            wish_embed.add_field(name=chr(173), value=fourth_pull, inline=False)
-                            wish_embed.add_field(name=chr(173), value=fifth_pull, inline=False)
-                            wish_embed.add_field(name=chr(173), value=sixth_pull, inline=False)
-                            wish_embed.add_field(name=chr(173), value=seventh_pull, inline=False)
-                            wish_embed.add_field(name=chr(173), value=eighth_pull, inline=False)
-                            wish_embed.add_field(name=chr(173), value=ninth_pull, inline=False)
-                            wish_embed.add_field(name=chr(173), value=tenth_pull, inline=False)
-                            wish_embed.set_footer(text='Wishes')
-                            await message.channel.send(embed=wish_embed)
-                            wish_count = int(wish.wishes_check(userid)) + 10
-                            contents = pd.read_csv('server_wishes.csv', dtype=str)
-                            contents.at[index, 'wishes'] = wish_count
-                            contents.to_csv('server_wishes.csv', index=False)
-                        else:
-                            await message.channel.send('Sorry {}, you do not have enough primos for this wish '
-                                                       'amount'.format(message.author.mention))
-                else:
-                    wish_casual = self.get_channel(784964222899453972)
-                    if message.channel == wish_casual:
-                        await message.channel.send("You're in <#784964222899453972>, use .wish. (NO CATALOG TRACKING)")
-                    else:
-                        await message.channel.send('Please use .wish multi in <#787520738118598656> only!')
-
-            if message.content == '.wish single':
-                wish_ch = self.get_channel(787520738118598656)
-                if message.channel == wish_ch:
-                    userid = message.author.id
-                    primo_check = wish.primo_check(userid)
-                    if primo_check == 'NONE':
-                        await message.channel.send('{}, you have not been registered yet. Use .daily to be able to '
-                                                   'wish.'.format(message.author.mention))
-                    else:
-                        initial_primos = primo_check[0]
-                        index = primo_check[1]
-                        initial_pitys = wish.pity_check(userid)
-                        fourstar_pity = int(initial_pitys[0])
-                        fivestar_pity = int(initial_pitys[1])
-                        if int(initial_primos) >= 160:
-                            sub_primos = int(initial_primos) - 160
-                            contents = pd.read_csv('server_wishes.csv', dtype=str)
-                            contents.at[index, 'primos'] = sub_primos
-                            contents.to_csv('server_wishes.csv', index=False)
-                            pull = wish.wishsingle_pity(userid)
-                            emoji_pull = pull[0] 
-                            name_pull = pull[1]
-                            wish.dupes(userid, index, name_pull)
-                            if "5" in pull[2]:
-                                rarity_gif = 'https://media1.tenor.com/images/0fd8cfa923ed50e19bf16d76de52055a/tenor.gif'
-                                embed_colour = discord.Colour.gold()
-                                contents = pd.read_csv('server_wishes.csv', dtype=str)
-                                contents.at[index, 'five_pity'] = 0
-                                contents.at[index, 'four_pity'] = fourstar_pity + 1
-                                contents.to_csv('server_wishes.csv', index=False)
-                            elif "4" in pull[2]:
-                                rarity_gif = 'https://media1.tenor.com/images/a2d4acc6cce5e248079ae69a4ee872af/tenor.gif'
-                                embed_colour = discord.Colour.purple()
-                                contents = pd.read_csv('server_wishes.csv', dtype=str)
-                                contents.at[index, 'four_pity'] = 0
-                                contents.at[index, 'five_pity'] = fivestar_pity + 1
-                                contents.to_csv('server_wishes.csv', index=False)
-                            else:
-                                rarity_gif = 'https://media1.tenor.com/images/9778d97b6d6ed00ceb116b5827c9c435/tenor.gif'
-                                embed_colour = discord.Colour(0x82d9f9)
-                                contents = pd.read_csv('server_wishes.csv', dtype=str)
-                                contents.at[index, 'four_pity'] = fourstar_pity + 1
-                                contents.at[index, 'five_pity'] = fivestar_pity + 1
-                                contents.to_csv('server_wishes.csv', index=False)
-
-                            first_pull = f"{emoji_pull[0]} {name_pull[0]}"
-
-                            wishing_embed = discord.Embed(
-                                description='{}, one star falls from the sky..'.format(message.author.mention),
-                                colour=discord.Colour(0x82d9f9)
-                            )
-                            wishing_embed.set_image(url=rarity_gif)
-                            wishing_embed.set_footer(text='Wishes')
-                            await message.channel.send(embed=wishing_embed)
-
-                            time.sleep(4)
-
-                            wish_embed = discord.Embed(
-                                description='{}, below are your pulls!'.format(message.author.mention),
-                                colour=embed_colour
-                            )
-                            wish_embed.add_field(name=chr(173), value=first_pull, inline=False)
-                            wish_embed.set_footer(text='Wishes')
-                            await message.channel.send(embed=wish_embed)
-                            wish_count = int(wish.wishes_check(userid)) + 1
-                            contents = pd.read_csv('server_wishes.csv', dtype=str)
-                            contents.at[index, 'wishes'] = wish_count
-                            contents.to_csv('server_wishes.csv', index=False)
-                        else:
-                            await message.channel.send('Sorry {}, you do not have enough primos for this wish '
-                                                       'amount'.format(message.author.mention))
-                else:
-                    wish_casual = self.get_channel(784964222899453972)
-                    if message.channel == wish_casual:
-                        await message.channel.send("You're in <#784964222899453972>, use .wish. (NO CATALOG TRACKING)")
-                    else:
-                        await message.channel.send('Please use .wish multi in <#787520738118598656> only!')
             if message.content == '.daily':
                 userid = message.author.id
                 # cooldown = message.created_at
