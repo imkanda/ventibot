@@ -171,8 +171,10 @@ class MyClient(discord.Client):
                     await message.channel.send("Only staff members can unmute.")
                     return
             if message.content.startswith('.wish'):
-                rarity_gif = ''
-                embed_colour = discord.Colour.green()
+
+                rarity_gif = 'https://c.tenor.com/Th97yaBk5kMAAAAd/genshin.gif'
+                embed_colour = discord.Colour(0x82d9f9)
+
                 simulation = False
                 wish_num = False
                 if message.content == '.wish multi':
@@ -194,11 +196,18 @@ class MyClient(discord.Client):
                         await message.channel.send(f'Sorry {message.author.mention}, you do not have enough primos for this wish amount')
                         return
                     if highest_rarity == "5*":
-                        rarity_gif = 'https://media1.tenor.com/images/4386330cff81cc4b79ea640f833a3a90/tenor.gif?itemid=19460396'
+                        if wish_num > 1:
+                            rarity_gif = 'https://c.tenor.com/BPGMrc6S2YAAAAAd/genshin.gif'
+                        else:
+                            rarity_gif = 'https://c.tenor.com/A2bebZZ0ILAAAAAS/genshin.gif'
                         embed_colour = discord.Colour.gold()
                     elif highest_rarity == "4*":  # what do we do if highest rarity is 3*
-                        rarity_gif = 'https://media1.tenor.com/images/0358d3a4fca9fcc5ec96074de002525f/tenor.gif?itemid=19460235'
+                        if wish_num > 1:
+                            rarity_gif = 'https://c.tenor.com/7pBGCuD2JHcAAAAd/genshin.gif'
+                        else:
+                            rarity_gif = 'https://c.tenor.com/-N667geZEPIAAAAd/genshin.gif'
                         embed_colour = discord.Colour.purple()
+
                     wishing_embed = discord.Embed(
                         description=f'{message.author.mention}, {wish_num} stars fall from the sky..',
                         colour=discord.Colour(0x82d9f9)
@@ -207,6 +216,7 @@ class MyClient(discord.Client):
                     wishing_embed.set_footer(text='Wishes')
                     await message.channel.send(embed=wishing_embed)
 
+                    # simulating pack opening
                     time.sleep(4)
 
                     wish_embed = discord.Embed(
@@ -233,8 +243,8 @@ class MyClient(discord.Client):
                 wish_ch = self.get_channel(787520738118598656)
                 if message.channel == wish_ch:
                     userid = message.author.id
-                    primo_check = wish.primo_check(userid)
-                    primos = str(primo_check[0])
+                    primo_check = wish.primo_transaction(userid, 0)
+                    primos = str(primo_check)
                     if primo_check == 'NONE':
                         await message.channel.send('{}, you have not been registered yet. Use .daily to gain primos to '
                                                    'wish and earn units!'.format(message.author.mention))
@@ -246,7 +256,7 @@ class MyClient(discord.Client):
                 wish_ch = self.get_channel(787520738118598656)
                 if message.channel == wish_ch:
                     userid = message.author.id
-                    pity = wish.pity_check(userid)
+                    pity = wish.get_pity(userid)
                     fourstar_pity = str(pity[0])
                     fivestar_pity = str(pity[1])
                     if pity == 'NONE':
