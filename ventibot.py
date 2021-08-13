@@ -2,7 +2,6 @@ import discord
 import random
 import asyncio
 import time
-import pandas as pd
 from wish import Wish
 from embeds import Embeds
 from mangascrape import Scrape
@@ -201,7 +200,7 @@ class MyClient(discord.Client):
                         else:
                             rarity_gif = 'https://c.tenor.com/A2bebZZ0ILAAAAAS/genshin.gif'
                         embed_colour = discord.Colour.gold()
-                    elif highest_rarity == "4*":  # what do we do if highest rarity is 3*
+                    elif highest_rarity == "4*":
                         if wish_num > 1:
                             rarity_gif = 'https://c.tenor.com/7pBGCuD2JHcAAAAd/genshin.gif'
                         else:
@@ -487,6 +486,7 @@ class MyClient(discord.Client):
         print('Connected')
         # updates online presence
         await self.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name='a ballad'))
+
 
 intents = discord.Intents.default()
 intents.members = True
