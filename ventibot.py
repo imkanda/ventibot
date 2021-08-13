@@ -84,16 +84,7 @@ class MyClient(discord.Client):
                 await message.channel.send(embed=embeds.help_embed())
             if message.content == '.game':
                 await message.channel.send(embed=embeds.roles_game())
-            # if message.content == '.manga_embed':
-            #     await message.channel.send(embed=embeds.manga_embed())
-            # if message.content == '.role_embed':
-            #     await message.channel.send(embed=embeds.role_info())
-            # if message.content == '.srvselect_embed':
-            #     await message.channel.send(embed=embeds.server_select())
-            # if message.content == '.world_embed':
-            #     await message.channel.send(embed=embeds.world_level())
-            # if message.content == '.info_embed':
-            #     await message.channel.send(embed=embeds.role_info())
+            # mute/unmute
             if message.content.startswith('.mute'):
                 guild = self.get_guild(749438385042751549)
                 mods = discord.utils.get(guild.roles, name="Fatui Harbingers")
@@ -169,6 +160,7 @@ class MyClient(discord.Client):
                 else:
                     await message.channel.send("Only staff members can unmute.")
                     return
+            # wish commands
             if message.content.startswith('.wish'):
 
                 rarity_gif = 'https://c.tenor.com/Th97yaBk5kMAAAAd/genshin.gif'
@@ -226,7 +218,7 @@ class MyClient(discord.Client):
                         wish_embed.add_field(name=chr(173), value=f'{pulled[1]} {pulled[0][1:]}', inline=False)
                     wish_embed.set_footer(text='Wishes')
                     await message.channel.send(embed=wish_embed)
-
+            # daily primo redemption
             if message.content == '.daily':
                 userid = message.author.id
                 # cooldown = message.created_at
@@ -238,6 +230,7 @@ class MyClient(discord.Client):
                 else:
                     await message.channel.send('{}, you must wait until tomorrow to do your dailies again'.format(
                         message.author.mention))
+            # primos check
             if message.content == '.primos':
                 wish_ch = self.get_channel(787520738118598656)
                 if message.channel == wish_ch:
@@ -251,6 +244,7 @@ class MyClient(discord.Client):
                         await message.channel.send(f'{message.author.mention}, you currently have {primos} primos.')
                 else:
                     await message.channel.send('Please use .primos in <#787520738118598656> only!')
+            # pity check
             if message.content == '.pity':
                 wish_ch = self.get_channel(787520738118598656)
                 if message.channel == wish_ch:
@@ -267,6 +261,7 @@ class MyClient(discord.Client):
                                                    f'next five star guarantee.')
                 else:
                     await message.channel.send('Please use .primos in <#787520738118598656> only!')
+            # catalog render
             if message.content == '.catalog':
                 userid = message.author.id
                 catalog = wish.catalog_parse(userid)
